@@ -18,6 +18,9 @@ public class Customer {
     @Column(nullable = false)
     private User user;
 
+    public Customer() {
+    }
+
     public Customer(String name, String phone, User user) {
         this.name = name;
         this.phone = phone;

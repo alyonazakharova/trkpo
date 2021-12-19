@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import main.repository.CustomerRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -43,6 +44,18 @@ public class CustomerServiceImpl implements CustomerService{
     @Override
     public Customer getById(long id) {
         Optional<Customer> customer = customerRepository.findById(id);
+        if (!customer.isPresent()) {
+            throw new EntityNotFoundException("Customer not found");
+        }
+        return customer.get();
+    }
+
+    @Override
+    public Customer getByUserId(long id) {
+        Optional<Customer> customer = ((List<Customer>) customerRepository.findAll())
+            .stream()
+            .filter(c -> c.getUser().getId().compareTo(id) == 0)
+            .findAny();
         if (!customer.isPresent()) {
             throw new EntityNotFoundException("Customer not found");
         }

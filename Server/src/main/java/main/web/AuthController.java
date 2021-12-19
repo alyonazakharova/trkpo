@@ -53,6 +53,7 @@ public class AuthController {
                 throw new InvalidLoginDataException();
             }
 
+            Customer customer = customerService.getByUserId(user.get().getId());
 
             String token = jwtTokenProvider.createToken(
                     name,
@@ -60,7 +61,8 @@ public class AuthController {
             );
 
             Map<Object, Object> model = new HashMap<>();
-            model.put("id", user.get().getId());
+            model.put("userId", user.get().getId());
+            model.put("customerId", customer.getId());
             model.put("userName", name);
             model.put("token", token);
 
