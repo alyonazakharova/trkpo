@@ -11,4 +11,6 @@ public interface CustomerService {
     void update(long id, CustomerModel customer);
 
     Customer getById(long id);
+
+    Customer getByUserId(long id);
 }
