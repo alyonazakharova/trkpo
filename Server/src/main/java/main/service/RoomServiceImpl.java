@@ -2,7 +2,9 @@ package main.service;
 
 import main.entity.Reservation;
 import main.entity.Room;
+import main.entity.RoomInstrument;
 import main.exception.EntityNotFoundException;
+import main.repository.RoomInstrumentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import main.repository.ReservationRepository;
 import main.repository.RoomRepository;
@@ -23,6 +25,9 @@ public class RoomServiceImpl implements RoomService {
     @Autowired
     private ReservationRepository reservationRepository;
 
+    @Autowired
+    private RoomInstrumentRepository roomInstrumentRepository;
+
     @Override
     public void add(Room customer) {
         roomRepository.save(customer);
@@ -34,6 +39,17 @@ public class RoomServiceImpl implements RoomService {
         if (!room.isPresent()) {
             throw new EntityNotFoundException("Room not found");
         }
+
+        ((List<RoomInstrument>) roomInstrumentRepository.findAll())
+            .stream()
+            .filter(roomInstrument -> roomInstrument.getRoom().getId().compareTo(id) == 0)
+            .forEach(roomInstrument ->  roomInstrumentRepository.delete(roomInstrument));
+
+        ((List<Reservation>) reservationRepository.findAll())
+            .stream()
+            .filter(reservation -> reservation.getRoom().getId().compareTo(id) == 0)
+            .forEach(reservation ->  reservationRepository.delete(reservation));
+
         roomRepository.delete(room.get());
     }
 

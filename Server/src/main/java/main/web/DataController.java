@@ -62,7 +62,7 @@ public class DataController {
         try {
             roomService.delete(id);
         } catch (WalkingException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Ward not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Room not found");
         }
     }
 
@@ -71,7 +71,7 @@ public class DataController {
         try {
             instrumentService.delete(id);
         } catch (WalkingException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Ward not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Instrument not found");
         }
     }
 
@@ -80,7 +80,7 @@ public class DataController {
         try {
             roomInstrumentService.delete(id);
         } catch (WalkingException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Ward not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "RoomInstrument not found");
         }
     }
 
