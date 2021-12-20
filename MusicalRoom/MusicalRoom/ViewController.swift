@@ -15,6 +15,7 @@ class ViewController: UIViewController {
         button.setTitle("Login", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .systemPink
+        button.titleLabel?.font = UIFont(name: "FasterOne-Regular", size: 20)
         button.addTarget(self,action: #selector(loginButtonTapped),for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -26,9 +27,9 @@ class ViewController: UIViewController {
         button.setTitle("Sign Up", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .systemPink
+        button.titleLabel?.font = UIFont(name: "FasterOne-Regular", size: 20)
         button.addTarget(self,action: #selector(signupButtonTapped),for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
-        //add fonts
         return button
     }()
     
@@ -64,7 +65,7 @@ class ViewController: UIViewController {
         signupButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
         
         view.addSubview(loginButton)
-        loginButton.bottomAnchor.constraint(equalTo: signupButton.topAnchor, constant: -20).isActive = true
+        loginButton.bottomAnchor.constraint(equalTo: signupButton.topAnchor, constant: -10).isActive = true
         view.addConstraint(NSLayoutConstraint(item: loginButton,
                                               attribute: .width,
                                               relatedBy: .equal,
@@ -83,11 +84,9 @@ class ViewController: UIViewController {
     }
     
     @objc private func loginButtonTapped() {
-//        let vc = LoginViewController()
-        //fixme временно
-        let vc = MainScreenViewController()
+        let vc = LoginViewController()
         vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: false, completion: nil)
+        self.present(vc, animated: true, completion: nil)
     }
 }
 

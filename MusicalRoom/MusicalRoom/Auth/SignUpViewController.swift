@@ -14,6 +14,8 @@ class SignUpViewController: UIViewController {
     private let nameLabel: UILabel = {
         let label = UILabel()
         label.text = "Name"
+        label.textColor = .white
+        label.font =  UIFont(name: "Sacramento-Regular", size: 30)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -23,7 +25,7 @@ class SignUpViewController: UIViewController {
         field.autocorrectionType = .no
         field.returnKeyType = .continue
         field.layer.cornerRadius = 10
-        field.placeholder = "username"
+        field.placeholder = "name"
         field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 14, height: 0))
         field.leftViewMode = .always
         field.backgroundColor = .textFieldBgColor
@@ -35,6 +37,8 @@ class SignUpViewController: UIViewController {
     private let phoneLabel: UILabel = {
         let label = UILabel()
         label.text = "Phone"
+        label.textColor = .white
+        label.font =  UIFont(name: "Sacramento-Regular", size: 30)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -57,6 +61,8 @@ class SignUpViewController: UIViewController {
     private let usernameLabel: UILabel = {
         let label = UILabel()
         label.text = "Username"
+        label.textColor = .white
+        label.font =  UIFont(name: "Sacramento-Regular", size: 30)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -79,6 +85,8 @@ class SignUpViewController: UIViewController {
     private let passwordLabel: UILabel = {
         let label = UILabel()
         label.text = "Password"
+        label.textColor = .white
+        label.font =  UIFont(name: "Sacramento-Regular", size: 30)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -102,6 +110,8 @@ class SignUpViewController: UIViewController {
     private let repeatPasswordLabel: UILabel = {
         let label = UILabel()
         label.text = "Repeat password"
+        label.textColor = .white
+        label.font =  UIFont(name: "Sacramento-Regular", size: 30)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -128,6 +138,7 @@ class SignUpViewController: UIViewController {
         button.setTitle("Sign Up", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .systemPink
+        button.titleLabel?.font = UIFont(name: "FasterOne-Regular", size: 20)
         button.addTarget(self,action: #selector(signupButtonTapped),for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -162,7 +173,7 @@ class SignUpViewController: UIViewController {
                                               attribute: .width,
                                               multiplier: 0.85,
                                               constant: 0))
-        nameField.topAnchor.constraint(equalTo: view.topAnchor, constant: 80).isActive = true
+        nameField.topAnchor.constraint(equalTo: view.topAnchor, constant: 100).isActive = true
         nameField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         nameField.heightAnchor.constraint(equalToConstant: 45).isActive = true
         
@@ -179,7 +190,7 @@ class SignUpViewController: UIViewController {
                                               attribute: .width,
                                               multiplier: 0.85,
                                               constant: 0))
-        phoneField.topAnchor.constraint(equalTo: nameField.bottomAnchor, constant: 40).isActive = true
+        phoneField.topAnchor.constraint(equalTo: nameField.bottomAnchor, constant: 60).isActive = true
         phoneField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         phoneField.heightAnchor.constraint(equalToConstant: 45).isActive = true
         
@@ -196,7 +207,7 @@ class SignUpViewController: UIViewController {
                                               attribute: .width,
                                               multiplier: 0.85,
                                               constant: 0))
-        usernameField.topAnchor.constraint(equalTo: phoneField.bottomAnchor, constant: 40).isActive = true
+        usernameField.topAnchor.constraint(equalTo: phoneField.bottomAnchor, constant: 60).isActive = true
         usernameField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         usernameField.heightAnchor.constraint(equalToConstant: 45).isActive = true
         
@@ -213,7 +224,7 @@ class SignUpViewController: UIViewController {
                                               attribute: .width,
                                               multiplier: 0.85,
                                               constant: 0))
-        passwordField.topAnchor.constraint(equalTo: usernameField.bottomAnchor, constant: 40).isActive = true
+        passwordField.topAnchor.constraint(equalTo: usernameField.bottomAnchor, constant: 60).isActive = true
         passwordField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         passwordField.heightAnchor.constraint(equalToConstant: 45).isActive = true
         
@@ -230,7 +241,7 @@ class SignUpViewController: UIViewController {
                                               attribute: .width,
                                               multiplier: 0.85,
                                               constant: 0))
-        repeatPasswordField.topAnchor.constraint(equalTo: passwordField.bottomAnchor, constant: 40).isActive = true
+        repeatPasswordField.topAnchor.constraint(equalTo: passwordField.bottomAnchor, constant: 60).isActive = true
         repeatPasswordField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         repeatPasswordField.heightAnchor.constraint(equalToConstant: 45).isActive = true
         
@@ -281,5 +292,25 @@ class SignUpViewController: UIViewController {
         }
         
         presenter?.signupButtonTapped(name: name, phone: phone, username: username, password: password)
+    }
+    
+    func showAlert() {
+        let alert = UIAlertController(title: "Ooops. Seems like user with this username already exists", message: nil, preferredStyle: UIAlertController.Style.alert)
+
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
+
+        }))
+
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func showSuccessAlert() {
+        let alert = UIAlertController(title: "Woohoo. You signed up successfully", message: nil, preferredStyle: UIAlertController.Style.alert)
+
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
+
+        }))
+
+        present(alert, animated: true, completion: nil)
     }
 }

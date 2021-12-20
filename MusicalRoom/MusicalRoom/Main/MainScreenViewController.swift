@@ -74,12 +74,8 @@ class MainScreenViewController: UIViewController {
     }
     
     @objc private func goToReserveButtonTapped() {
-//        let vc = LoginViewController()
-//        vc.modalPresentationStyle = .fullScreen
-//        self.present(vc, animated: false, completion: nil)
+        let vc = ReserveViewController()
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: false, completion: nil)
     }
-    
-    
-    
-
 }

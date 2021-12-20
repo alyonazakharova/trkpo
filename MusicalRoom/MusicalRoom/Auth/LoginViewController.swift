@@ -10,10 +10,12 @@ import UIKit
 class LoginViewController: UIViewController {
     
     var presenter: LoginPresenterProtocol?
-    
+
     private let usernameLabel: UILabel = {
         let label = UILabel()
         label.text = "Username"
+        label.textColor = .white
+        label.font =  UIFont(name: "Sacramento-Regular", size: 30)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -36,6 +38,8 @@ class LoginViewController: UIViewController {
     private let passwordLabel: UILabel = {
         let label = UILabel()
         label.text = "Password"
+        label.textColor = .white
+        label.font =  UIFont(name: "Sacramento-Regular", size: 30)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -61,6 +65,7 @@ class LoginViewController: UIViewController {
         button.layer.cornerRadius = 10
         button.setTitle("Log In", for: .normal)
         button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = UIFont(name: "FasterOne-Regular", size: 20)
         button.backgroundColor = .systemPink
         button.addTarget(self,action: #selector(loginButtonTapped),for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -96,7 +101,7 @@ class LoginViewController: UIViewController {
                                               attribute: .width,
                                               multiplier: 0.85,
                                               constant: 0))
-        usernameField.topAnchor.constraint(equalTo: view.centerYAnchor, constant: 0).isActive = true
+        usernameField.topAnchor.constraint(equalTo: view.topAnchor, constant: 100).isActive = true
         usernameField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         usernameField.heightAnchor.constraint(equalToConstant: 45).isActive = true
         
@@ -113,7 +118,7 @@ class LoginViewController: UIViewController {
                                               attribute: .width,
                                               multiplier: 0.85,
                                               constant: 0))
-        passwordField.topAnchor.constraint(equalTo: usernameField.bottomAnchor, constant: 40).isActive = true
+        passwordField.topAnchor.constraint(equalTo: usernameField.bottomAnchor, constant: 60).isActive = true
         passwordField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         passwordField.heightAnchor.constraint(equalToConstant: 45).isActive = true
         
@@ -154,5 +159,15 @@ class LoginViewController: UIViewController {
         }
         
         presenter?.loginButtonTapped(username: username, password: password)
+    }
+    
+    func showAlert() {
+        let alert = UIAlertController(title: "Ooops. Seems like you entered wrong username or password", message: nil, preferredStyle: UIAlertController.Style.alert)
+
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
+
+        }))
+
+        present(alert, animated: true, completion: nil)
     }
 }
