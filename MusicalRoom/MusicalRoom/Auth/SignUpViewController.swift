@@ -286,7 +286,7 @@ class SignUpViewController: UIViewController {
             let alert = UIAlertController(title: "Ooops!",
                                           message: "Please, fill all the fields",
                                           preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
             present(alert, animated: true)
             return
         }
