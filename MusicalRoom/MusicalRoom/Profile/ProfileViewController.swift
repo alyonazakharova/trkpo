@@ -256,7 +256,7 @@ class ProfileViewController: UIViewController {
             let alert = UIAlertController(title: "Ooops!",
                                           message: "You didn't fill some info about yourself",
                                           preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
             present(alert, animated: true)
             return
         }
