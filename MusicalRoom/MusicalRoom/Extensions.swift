@@ -28,4 +28,7 @@ extension String {
     
     //POST request to add new room
     static let addRoomUrl = "http://localhost:8080/data/room"
+    
+    //POST request to add new instrument
+    static let addInstrumentUrl = "http://localhost:8080/data/instrument"
 }

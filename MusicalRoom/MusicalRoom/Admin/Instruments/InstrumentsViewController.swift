@@ -9,6 +9,8 @@ import UIKit
 
 class InstrumentsViewController: UIViewController {
     
+    var presenter: InstrumentsPresenterProtocol?
+    
     private let nameLabel: UILabel = {
         let label = UILabel()
         label.text = "Name"
@@ -79,7 +81,7 @@ class InstrumentsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        presenter = InstrumentsPresenter(view: self)
         setBackground()
         setUI()
     }
@@ -160,11 +162,37 @@ class InstrumentsViewController: UIViewController {
     }
     
     @objc private func addInstrumentButtonTapped() {
-        //todo
+        nameField.resignFirstResponder()
+        descriptionField.resignFirstResponder()
+        
+        guard let name = nameField.text,
+              let description = descriptionField.text,
+              !name.isEmpty,
+              !description.isEmpty
+        else {
+            let alert = UIAlertController(title: "Ooops!",
+                                          message: "Please, fill and the fields",
+                                          preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+            present(alert, animated: true)
+            return
+        }
+        
+        presenter?.addNewInstrument(name: name, description: description)
     }
     
     @objc private func viewInstrumentsButtonTapped() {
         let allInstrumentsVC = AllInstrumentsViewController()
         navigationController?.pushViewController(allInstrumentsVC, animated: true)
+    }
+    
+    func showAlert(title: String) {
+        let alert = UIAlertController(title: title, message: nil, preferredStyle: UIAlertController.Style.alert)
+        
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
+            
+        }))
+        
+        present(alert, animated: true, completion: nil)
     }
 }

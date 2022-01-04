@@ -37,6 +37,7 @@
 		6DBC6AFD278464D3003C3120 /* AllInstrumentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DBC6AFC278464D3003C3120 /* AllInstrumentsViewController.swift */; };
 		6DBC6AFF27846933003C3120 /* RoomsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DBC6AFE27846933003C3120 /* RoomsPresenter.swift */; };
 		6DBC6B0127846F04003C3120 /* AllRoomsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DBC6B0027846F04003C3120 /* AllRoomsPresenter.swift */; };
+		6DBC6B032784779C003C3120 /* InstrumentsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DBC6B022784779C003C3120 /* InstrumentsPresenter.swift */; };
 		6DFBF9232766AFC600FAAA04 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DFBF9222766AFC600FAAA04 /* AppDelegate.swift */; };
 		6DFBF9252766AFC600FAAA04 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DFBF9242766AFC600FAAA04 /* SceneDelegate.swift */; };
 		6DFBF9272766AFC600FAAA04 /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DFBF9262766AFC600FAAA04 /* InitialViewController.swift */; };
@@ -75,6 +76,7 @@
 		6DBC6AFC278464D3003C3120 /* AllInstrumentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllInstrumentsViewController.swift; sourceTree = "<group>"; };
 		6DBC6AFE27846933003C3120 /* RoomsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsPresenter.swift; sourceTree = "<group>"; };
 		6DBC6B0027846F04003C3120 /* AllRoomsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllRoomsPresenter.swift; sourceTree = "<group>"; };
+		6DBC6B022784779C003C3120 /* InstrumentsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstrumentsPresenter.swift; sourceTree = "<group>"; };
 		6DFBF91F2766AFC600FAAA04 /* MusicalRoom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicalRoom.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DFBF9222766AFC600FAAA04 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6DFBF9242766AFC600FAAA04 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -223,6 +225,7 @@
 			isa = PBXGroup;
 			children = (
 				6DBC6AF127845DF9003C3120 /* InstrumentsViewController.swift */,
+				6DBC6B022784779C003C3120 /* InstrumentsPresenter.swift */,
 				6DBC6AFC278464D3003C3120 /* AllInstrumentsViewController.swift */,
 			);
 			path = Instruments;
@@ -435,6 +438,7 @@
 				6DFBF9272766AFC600FAAA04 /* InitialViewController.swift in Sources */,
 				6DFBF9232766AFC600FAAA04 /* AppDelegate.swift in Sources */,
 				6D64C210276E28E700353ECD /* ReserveViewController.swift in Sources */,
+				6DBC6B032784779C003C3120 /* InstrumentsPresenter.swift in Sources */,
 				6D64C21D276E7F3F00353ECD /* UserData.swift in Sources */,
 				6DBC6B0127846F04003C3120 /* AllRoomsPresenter.swift in Sources */,
 				6D94CA5B2766B8E0009F7E7B /* SignUpViewController.swift in Sources */,

@@ -1,5 +1,5 @@
 //
-//  RoomsPresenter.swift
+//  InstrumentsPresenter.swift
 //  MusicalRoom
 //
 //  Created by Алена Захарова on 04.01.2022.
@@ -7,27 +7,27 @@
 
 import Foundation
 
-protocol RoomsPresenterProtocol: AnyObject {
-    init(view: RoomsViewController)
-    func addNewRoom(name: String, description: String, price: Int)
+protocol InstrumentsPresenterProtocol: AnyObject {
+    init(view: InstrumentsViewController)
+    func addNewInstrument(name: String, description: String)
 }
 
 
-class RoomsPresenter: RoomsPresenterProtocol {
+class InstrumentsPresenter: InstrumentsPresenterProtocol {
     private let group = DispatchGroup()
     private var errorOccured: Bool
     
-    var view: RoomsViewController?
+    var view: InstrumentsViewController?
     
-    required init(view: RoomsViewController) {
+    required init(view: InstrumentsViewController) {
         self.view = view
         self.errorOccured = false
     }
     
-    func addNewRoom(name: String, description: String, price: Int) {
+    func addNewInstrument(name: String, description: String) {
         self.errorOccured = false
         
-        var request = URLRequest(url: URL(string: .addRoomUrl)!)
+        var request = URLRequest(url: URL(string: .addInstrumentUrl)!)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("Bearer \(UserData.bearerToken)", forHTTPHeaderField: "Authorization")
@@ -35,7 +35,6 @@ class RoomsPresenter: RoomsPresenterProtocol {
         let body: [String: AnyHashable] = [
             "name": name,
             "description": description,
-            "price": price
         ]
         
         request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: .fragmentsAllowed)
@@ -62,7 +61,8 @@ class RoomsPresenter: RoomsPresenterProtocol {
                 self?.view?.showAlert(title: "Ooops. Something went wrong")
                 return
             }
-            self?.view?.showAlert(title: "Room was added successfully")
+            self?.view?.showAlert(title: "Instrument was added successfully")
         }
     }
 }
+
