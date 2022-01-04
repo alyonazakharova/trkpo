@@ -7,11 +7,11 @@
 
 import UIKit
 
-class MainScreenViewController: UIViewController {
+class HomeViewController: UIViewController {
     
     private let infoLabel: UILabel = {
         let label = UILabel()
-        label.text = "Our company has been operating since 1994. Such stars as Alla Pugacheva, Philip Kirkorov and many others worked with us. Order your music room as soon as possible!"
+        label.text = .homeInfo
         label.textAlignment = .center
         label.numberOfLines = 0
         label.textColor = .infoLabelTextColor

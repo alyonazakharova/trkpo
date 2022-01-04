@@ -164,6 +164,7 @@ class InstrumentsViewController: UIViewController {
     }
     
     @objc private func viewInstrumentsButtonTapped() {
-        //todo
+        let allInstrumentsVC = AllInstrumentsViewController()
+        navigationController?.pushViewController(allInstrumentsVC, animated: true)
     }
 }

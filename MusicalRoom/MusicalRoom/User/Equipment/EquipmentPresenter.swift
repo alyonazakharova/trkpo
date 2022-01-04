@@ -25,7 +25,7 @@ class EquipmentPresenter: EquipmentPresenterProtocol {
     
     func loadContent() {
         print("loadContent called")
-        var request = URLRequest(url: URL(string: "http://localhost:8080/rooms/all")!)
+        var request = URLRequest(url: URL(string: .getAllRoomsUrl)!)
         request.httpMethod = "GET"
         
         let task = URLSession.shared.dataTask(with: request) { [self] data, response, error in

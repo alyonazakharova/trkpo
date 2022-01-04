@@ -9,6 +9,8 @@ import UIKit
 
 class RoomsViewController: UIViewController {
     
+    var presenter: RoomsPresenterProtocol?
+
     private let nameLabel: UILabel = {
         let label = UILabel()
         label.text = "Name"
@@ -101,7 +103,7 @@ class RoomsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        presenter = RoomsPresenter(view: self)
         setBackground()
         setUI()
     }
@@ -200,10 +202,40 @@ class RoomsViewController: UIViewController {
     }
     
     @objc private func addRoomButtonTapped() {
-        //todo
+        nameField.resignFirstResponder()
+        descriptionField.resignFirstResponder()
+        priceField.resignFirstResponder()
+        
+        guard let name = nameField.text,
+              let description = descriptionField.text,
+              let price: Int? = Int(priceField.text!) ?? 0,
+              !name.isEmpty,
+              !description.isEmpty,
+              price != 0
+        else {
+            let alert = UIAlertController(title: "Ooops!",
+                                          message: "Please, check that you filled all the fields correctly",
+                                          preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+            present(alert, animated: true)
+            return
+        }
+        
+        presenter?.addNewRoom(name: name, description: description, price: price!)
     }
     
     @objc private func viewRoomsButtonTapped() {
-        //todo
+        let allRoomsVC = AllRoomsViewController()
+        navigationController?.pushViewController(allRoomsVC, animated: true)
+    }
+    
+    func showAlert(title: String) {
+        let alert = UIAlertController(title: title, message: nil, preferredStyle: UIAlertController.Style.alert)
+        
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
+            
+        }))
+        
+        present(alert, animated: true, completion: nil)
     }
 }

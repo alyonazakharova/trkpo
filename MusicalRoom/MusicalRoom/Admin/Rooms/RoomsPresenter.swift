@@ -1,38 +1,39 @@
 //
-//  ProfilePresenter.swift
+//  RoomsPresenter.swift
 //  MusicalRoom
 //
-//  Created by Алена Захарова on 19.12.2021.
+//  Created by Алена Захарова on 04.01.2022.
 //
 
 import Foundation
 
-protocol ProfilePresenterProtocol: AnyObject {
-    func updateButtonTapped(name: String, phone: String, username: String)
-    init(view: ProfileViewController)
+protocol RoomsPresenterProtocol: AnyObject {
+    init(view: RoomsViewController)
+    func addNewRoom(name: String, description: String, price: Int)
 }
 
-class ProfilePresenter: ProfilePresenterProtocol {
-    var view: ProfileViewController?
-    
+
+class RoomsPresenter: RoomsPresenterProtocol {
     private let group = DispatchGroup()
     private var errorOccured: Bool
     
-    required init(view: ProfileViewController) {
+    var view: RoomsViewController?
+    
+    required init(view: RoomsViewController) {
         self.view = view
         self.errorOccured = false
     }
     
-    func updateButtonTapped(name: String, phone: String, username: String) {
-        var request = URLRequest(url: URL(string: "http://localhost:8080/customers/\(UserData.customerId)")!)
+    func addNewRoom(name: String, description: String, price: Int) {
+        var request = URLRequest(url: URL(string: .addRoomUrl)!)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("Bearer \(UserData.bearerToken)", forHTTPHeaderField: "Authorization")
         
         let body: [String: AnyHashable] = [
             "name": name,
-            "phone": phone,
-            "userId": UserData.userId
+            "description": description,
+            "price": price
         ]
         
         request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: .fragmentsAllowed)
@@ -56,10 +57,10 @@ class ProfilePresenter: ProfilePresenterProtocol {
         
         group.notify(queue: .main) { [weak self] in
             if (self?.errorOccured != nil && self?.errorOccured == true) {
-                self?.view?.showAlert(title: "Oops. Something went wrong")
+                self?.view?.showAlert(title: "Ooops. Something went wrong")
                 return
             }
-            self?.view?.showAlert(title: "Woohoo. You successfully updated your info")
+            self?.view?.showAlert(title: "New room was added successfully")
         }
     }
 }

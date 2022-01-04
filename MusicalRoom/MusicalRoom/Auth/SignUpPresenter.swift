@@ -25,7 +25,7 @@ class SignUpPresenter: SignUpPresenterProtocol {
     }
     
     func signupButtonTapped(name: String, phone: String, username: String, password: String) {
-        var request = URLRequest(url: URL(string: "http://localhost:8080/auth/register")!)
+        var request = URLRequest(url: URL(string: .registrationUrl)!)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         let body: [String: AnyHashable] = [

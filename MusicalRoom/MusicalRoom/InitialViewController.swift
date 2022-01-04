@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class InitialViewController: UIViewController {
     
     private let loginButton: UIButton = {
         let button = UIButton()

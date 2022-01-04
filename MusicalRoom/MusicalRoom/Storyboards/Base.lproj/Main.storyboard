@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="0EU-79-kNd">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="KiC-Uu-Fno">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -12,7 +12,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="wpO-al-AlI">
             <objects>
-                <tabBarController id="0EU-79-kNd" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="adminTabBar" id="0EU-79-kNd" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Y0J-Al-Ptv">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -46,10 +46,10 @@
             </objects>
             <point key="canvasLocation" x="-5781" y="-621"/>
         </scene>
-        <!--Rooms View Controller-->
+        <!--Home View Controller-->
         <scene sceneID="yol-2V-rtd">
             <objects>
-                <viewController id="wW8-Yk-edW" customClass="RoomsViewController" customModule="MusicalRoom" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="wW8-Yk-edW" customClass="HomeViewController" customModule="MusicalRoom" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5f1-a4-ju0">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -64,7 +64,7 @@
         <!--Reserve-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="MusicalRoom" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="InitialViewController" customModule="MusicalRoom" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -128,10 +128,10 @@
             </objects>
             <point key="canvasLocation" x="-4025" y="818"/>
         </scene>
-        <!--View Controller-->
+        <!--Initial View Controller-->
         <scene sceneID="PNl-of-YHz">
             <objects>
-                <viewController id="N8Z-Cd-htG" customClass="ViewController" customModule="MusicalRoom" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="N8Z-Cd-htG" customClass="InitialViewController" customModule="MusicalRoom" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="n16-lw-UgR">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -185,7 +185,7 @@
         <!--Home-->
         <scene sceneID="AbE-XY-kQn">
             <objects>
-                <viewController id="M5g-LQ-uY8" customClass="MainScreenViewController" customModule="MusicalRoom" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="M5g-LQ-uY8" customClass="HomeViewController" customModule="MusicalRoom" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qvd-rc-xKu">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
