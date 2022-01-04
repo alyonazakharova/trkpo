@@ -31,6 +31,9 @@
 		6D94CA7D276913BE009F7E7B /* EquipmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D94CA7C276913BE009F7E7B /* EquipmentViewController.swift */; };
 		6D94CA7F276916F1009F7E7B /* EquipmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D94CA7E276916F1009F7E7B /* EquipmentTableViewCell.swift */; };
 		6D94CA81276922A2009F7E7B /* Equipment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D94CA80276922A2009F7E7B /* Equipment.swift */; };
+		6DBC6AF0278454FE003C3120 /* RoomsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DBC6AEF278454FE003C3120 /* RoomsViewController.swift */; };
+		6DBC6AF227845DF9003C3120 /* InstrumentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DBC6AF127845DF9003C3120 /* InstrumentsViewController.swift */; };
+		6DBC6AF827845F3B003C3120 /* AdminEquipmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DBC6AF727845F3B003C3120 /* AdminEquipmentViewController.swift */; };
 		6DFBF9232766AFC600FAAA04 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DFBF9222766AFC600FAAA04 /* AppDelegate.swift */; };
 		6DFBF9252766AFC600FAAA04 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DFBF9242766AFC600FAAA04 /* SceneDelegate.swift */; };
 		6DFBF9272766AFC600FAAA04 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DFBF9262766AFC600FAAA04 /* ViewController.swift */; };
@@ -63,6 +66,9 @@
 		6D94CA7C276913BE009F7E7B /* EquipmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentViewController.swift; sourceTree = "<group>"; };
 		6D94CA7E276916F1009F7E7B /* EquipmentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentTableViewCell.swift; sourceTree = "<group>"; };
 		6D94CA80276922A2009F7E7B /* Equipment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Equipment.swift; sourceTree = "<group>"; };
+		6DBC6AEF278454FE003C3120 /* RoomsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsViewController.swift; sourceTree = "<group>"; };
+		6DBC6AF127845DF9003C3120 /* InstrumentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstrumentsViewController.swift; sourceTree = "<group>"; };
+		6DBC6AF727845F3B003C3120 /* AdminEquipmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminEquipmentViewController.swift; sourceTree = "<group>"; };
 		6DFBF91F2766AFC600FAAA04 /* MusicalRoom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicalRoom.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DFBF9222766AFC600FAAA04 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6DFBF9242766AFC600FAAA04 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -185,6 +191,48 @@
 			path = Equipment;
 			sourceTree = "<group>";
 		};
+		6DBC6AEA2784537F003C3120 /* Admin */ = {
+			isa = PBXGroup;
+			children = (
+				6DBC6AF627845F2C003C3120 /* Equipment */,
+				6DBC6AED278454A0003C3120 /* Reservations */,
+				6DBC6AEC27845496003C3120 /* Instruments */,
+				6DBC6AEB2784548A003C3120 /* Rooms */,
+			);
+			path = Admin;
+			sourceTree = "<group>";
+		};
+		6DBC6AEB2784548A003C3120 /* Rooms */ = {
+			isa = PBXGroup;
+			children = (
+				6DBC6AEF278454FE003C3120 /* RoomsViewController.swift */,
+			);
+			path = Rooms;
+			sourceTree = "<group>";
+		};
+		6DBC6AEC27845496003C3120 /* Instruments */ = {
+			isa = PBXGroup;
+			children = (
+				6DBC6AF127845DF9003C3120 /* InstrumentsViewController.swift */,
+			);
+			path = Instruments;
+			sourceTree = "<group>";
+		};
+		6DBC6AED278454A0003C3120 /* Reservations */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Reservations;
+			sourceTree = "<group>";
+		};
+		6DBC6AF627845F2C003C3120 /* Equipment */ = {
+			isa = PBXGroup;
+			children = (
+				6DBC6AF727845F3B003C3120 /* AdminEquipmentViewController.swift */,
+			);
+			path = Equipment;
+			sourceTree = "<group>";
+		};
 		6DFBF9162766AFC500FAAA04 = {
 			isa = PBXGroup;
 			children = (
@@ -206,6 +254,7 @@
 		6DFBF9212766AFC600FAAA04 /* MusicalRoom */ = {
 			isa = PBXGroup;
 			children = (
+				6DBC6AEA2784537F003C3120 /* Admin */,
 				6D572D8E276F96DA006F8DA9 /* Profile */,
 				6D64C215276E4E4D00353ECD /* Entity */,
 				6D64C20E276E28CC00353ECD /* Reserve */,
@@ -361,6 +410,7 @@
 				6D572D8D276F4275006F8DA9 /* ReservePresenter.swift in Sources */,
 				6D94CA612767D186009F7E7B /* LoginViewController.swift in Sources */,
 				6D94CA5F2767CFC8009F7E7B /* SignUpPresenter.swift in Sources */,
+				6DBC6AF0278454FE003C3120 /* RoomsViewController.swift in Sources */,
 				6D64C219276E559100353ECD /* User.swift in Sources */,
 				6D94CA5D2766BEBF009F7E7B /* Extensions.swift in Sources */,
 				6DFBF9272766AFC600FAAA04 /* ViewController.swift in Sources */,
@@ -371,6 +421,8 @@
 				6DFBF9252766AFC600FAAA04 /* SceneDelegate.swift in Sources */,
 				6D572D92276F96F6006F8DA9 /* ProfilePresenter.swift in Sources */,
 				6D94CA662767D5EC009F7E7B /* MainScreenViewController.swift in Sources */,
+				6DBC6AF227845DF9003C3120 /* InstrumentsViewController.swift in Sources */,
+				6DBC6AF827845F3B003C3120 /* AdminEquipmentViewController.swift in Sources */,
 				6D94CA7D276913BE009F7E7B /* EquipmentViewController.swift in Sources */,
 				6D64C217276E4E5C00353ECD /* Room.swift in Sources */,
 			);
