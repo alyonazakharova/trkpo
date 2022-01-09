@@ -1,6 +1,7 @@
 package main.service;
 
 import main.entity.Instrument;
+import main.entity.Room;
 import main.entity.RoomInstrument;
 import main.exception.EntityNotFoundException;
 import main.repository.RoomInstrumentRepository;
@@ -32,9 +33,9 @@ public class InstrumentServiceImpl implements InstrumentService {
         }
 
         ((List<RoomInstrument>) roomInstrumentRepository.findAll())
-                .stream()
-                .filter(roomInstrument -> roomInstrument.getInstrument().getId().compareTo(id) == 0)
-                .forEach(roomInstrument -> roomInstrumentRepository.delete(roomInstrument));
+          .stream()
+          .filter(roomInstrument -> roomInstrument.getInstrument().getId().compareTo(id) == 0)
+          .forEach(roomInstrument -> roomInstrumentRepository.delete(roomInstrument));
 
         instrumentRepository.delete(instrument.get());
     }
@@ -52,4 +53,10 @@ public class InstrumentServiceImpl implements InstrumentService {
     public boolean checkById(long id) {
         return instrumentRepository.findById(id).isPresent();
     }
+
+    @Override
+    public List<Instrument> getAll() {
+        return (List<Instrument>) instrumentRepository.findAll();
+    }
+
 }

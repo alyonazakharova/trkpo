@@ -2,6 +2,8 @@ package main.service;
 
 import main.entity.Instrument;
 
+import java.util.List;
+
 public interface InstrumentService {
     void add(Instrument customer);
 
@@ -10,4 +12,6 @@ public interface InstrumentService {
     Instrument getById(long id);
 
     boolean checkById(long id);
+
+    List<Instrument> getAll();
 }
