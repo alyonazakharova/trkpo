@@ -1,31 +1,29 @@
 //
-//  ReservationViewController.swift
+//  AllInstrumentsViewController.swift
 //  MusicalRoom
 //
-//  Created by Алена Захарова on 08.01.2022.
+//  Created by Алена Захарова on 04.01.2022.
 //
 
 import UIKit
 
-class ReservationViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    
-    var presenter: ReservationPresenterProtocol?
-    
-    var reservations = [ReservationModel]()
+class AllInstrumentsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+
+    var instruments = [InstrumentModel]()
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return reservations.count
+        return instruments.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) ->
     UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: ReservationTableViewCell.identifier) as? ReservationTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: InstrumentTableViewCell.identifier) as? InstrumentTableViewCell
         
-        cell?.confirmButton.tag = indexPath.row
-        cell?.confirmButton.addTarget(self,action:#selector(confrirmButtonTapped),for:.touchUpInside)
+        cell?.deleteButton.tag = indexPath.row
+        cell?.deleteButton.addTarget(self,action:#selector(deleteButtonTapped),for:.touchUpInside)
         
-        let reservation = reservations[indexPath.row]
-        cell?.configure(with: reservation)
+        let instrument = instruments[indexPath.row]
+        cell?.configure(with: instrument)
         return cell!
     }
     
@@ -35,7 +33,7 @@ class ReservationViewController: UIViewController, UITableViewDataSource, UITabl
     
     private let tableView: UITableView = {
         let tableView = UITableView()
-        tableView.register(ReservationTableViewCell.self, forCellReuseIdentifier: ReservationTableViewCell.identifier)
+        tableView.register(InstrumentTableViewCell.self, forCellReuseIdentifier: InstrumentTableViewCell.identifier)
         return tableView
     }()
     
@@ -45,8 +43,6 @@ class ReservationViewController: UIViewController, UITableViewDataSource, UITabl
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        presenter = ReservationPresenter(view: self)
         
         loadContent()
         
@@ -61,8 +57,8 @@ class ReservationViewController: UIViewController, UITableViewDataSource, UITabl
         tableView.frame = view.bounds
     }
     
-    @objc func confrirmButtonTapped(sender: UIButton) {
-        let alert = UIAlertController(title: "Confirm reservation?", message: nil, preferredStyle: UIAlertController.Style.alert)
+    @objc func deleteButtonTapped(sender: UIButton) {
+        let alert = UIAlertController(title: "Delete instrument?", message: nil, preferredStyle: UIAlertController.Style.alert)
 
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
             //todo
@@ -77,7 +73,7 @@ class ReservationViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func loadContent() {
-        var request = URLRequest(url: URL(string: .getAllReservationsUrl)!)
+        var request = URLRequest(url: URL(string: .getAllInstrumentsUrl)!)
         request.httpMethod = "GET"
         request.addValue("Bearer \(UserData.bearerToken)", forHTTPHeaderField: "Authorization")
 
@@ -87,11 +83,11 @@ class ReservationViewController: UIViewController, UITableViewDataSource, UITabl
                 return
             }
             
-            guard let receivedReservations = try? JSONDecoder().decode([ReservationModel].self, from: data) else {
+            guard let receivedInstruments = try? JSONDecoder().decode([InstrumentModel].self, from: data) else {
               print("Error: Couldn't decode data")
               return
             }
-            self.reservations = receivedReservations
+            self.instruments = receivedInstruments
             DispatchQueue.main.async {
               self.tableView.reloadData()
             }

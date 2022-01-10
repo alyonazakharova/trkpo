@@ -14,7 +14,7 @@ class RoomsViewController: UIViewController {
     private let nameLabel: UILabel = {
         let label = UILabel()
         label.text = "Name"
-        label.textColor = .white
+        label.textColor = .black
         label.font =  UIFont(name: "Sacramento-Regular", size: 30)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -36,7 +36,7 @@ class RoomsViewController: UIViewController {
     private let descriptionLabel: UILabel = {
         let label = UILabel()
         label.text = "Description"
-        label.textColor = .white
+        label.textColor = .black
         label.font =  UIFont(name: "Sacramento-Regular", size: 30)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -58,7 +58,7 @@ class RoomsViewController: UIViewController {
     private let priceLabel: UILabel = {
         let label = UILabel()
         label.text = "Price"
-        label.textColor = .white
+        label.textColor = .black
         label.font =  UIFont(name: "Sacramento-Regular", size: 30)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

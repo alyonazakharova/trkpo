@@ -14,7 +14,7 @@ class InstrumentsViewController: UIViewController {
     private let nameLabel: UILabel = {
         let label = UILabel()
         label.text = "Name"
-        label.textColor = .white
+        label.textColor = .black
         label.font =  UIFont(name: "Sacramento-Regular", size: 30)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -36,7 +36,7 @@ class InstrumentsViewController: UIViewController {
     private let descriptionLabel: UILabel = {
         let label = UILabel()
         label.text = "Description"
-        label.textColor = .white
+        label.textColor = .black
         label.font =  UIFont(name: "Sacramento-Regular", size: 30)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

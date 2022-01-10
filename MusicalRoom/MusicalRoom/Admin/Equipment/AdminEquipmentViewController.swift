@@ -16,6 +16,10 @@ class AdminEquipmentViewController: UIViewController {
     var roomsNames = [String]()
     var selectedRoom: Room?
     
+    var instruments = [InstrumentModel]()
+    var instrumentsNames = [String]()
+    var selectedInstrument: InstrumentModel?
+    
     private let instrumentLabel: UILabel = {
         let label = UILabel()
         label.text = "Instrument"
@@ -27,7 +31,7 @@ class AdminEquipmentViewController: UIViewController {
     
     private let instrumentView: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = .textFieldBgColor
         view.layer.cornerRadius = 15
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -53,7 +57,7 @@ class AdminEquipmentViewController: UIViewController {
     
     private let roomView: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = .textFieldBgColor
         view.layer.cornerRadius = 15
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -82,7 +86,7 @@ class AdminEquipmentViewController: UIViewController {
     
     private let roomsDropDown = DropDown()
     private let instrumentsDropDown = DropDown()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter = AdminEquipmentPresenter(view: self)
@@ -90,9 +94,9 @@ class AdminEquipmentViewController: UIViewController {
         setUI()
         
         loadRooms()
+        loadInstruments()
         
         roomsDropDown.anchorView = roomView
-        
         roomsDropDown.bottomOffset = CGPoint(x: 0, y:(roomsDropDown.anchorView?.plainView.bounds.height)!)
         roomsDropDown.topOffset = CGPoint(x: 0, y:-(roomsDropDown.anchorView?.plainView.bounds.height)!)
         roomsDropDown.direction = .bottom
@@ -100,6 +104,16 @@ class AdminEquipmentViewController: UIViewController {
             print("Selected item: \(item) at index: \(index)")
             self.selectRoomButton.setTitle(roomsNames[index], for: .normal)
             selectedRoom = rooms[index]
+        }
+        
+        instrumentsDropDown.anchorView = instrumentView
+        instrumentsDropDown.bottomOffset = CGPoint(x: 0, y:(instrumentsDropDown.anchorView?.plainView.bounds.height)!)
+        instrumentsDropDown.topOffset = CGPoint(x: 0, y:-(instrumentsDropDown.anchorView?.plainView.bounds.height)!)
+        instrumentsDropDown.direction = .bottom
+        instrumentsDropDown.selectionAction = { [unowned self] (index: Int, item: String) in
+            print("Selected item: \(item) at index: \(index)")
+            self.selectInstrumentButton.setTitle(instrumentsNames[index], for: .normal)
+            selectedInstrument = instruments[index]
         }
     }
     
@@ -136,18 +150,17 @@ class AdminEquipmentViewController: UIViewController {
         
         
         // ROOM
-        view.addSubview(roomLabel)
-        roomLabel.topAnchor.constraint(equalTo: instrumentView.bottomAnchor, constant: 30).isActive = true
-        roomLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30).isActive = true
-        
-        roomView.addSubview(selectRoomButton)
-        
         view.addSubview(roomView)
-        roomView.topAnchor.constraint(equalTo: roomLabel.bottomAnchor, constant: 5).isActive = true
+        roomView.topAnchor.constraint(equalTo: instrumentView.bottomAnchor, constant: 60).isActive = true
         roomView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30).isActive = true
         roomView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -30).isActive = true
         roomView.heightAnchor.constraint(equalToConstant: 45).isActive = true
         
+        view.addSubview(roomLabel)
+        roomLabel.bottomAnchor.constraint(equalTo: roomView.topAnchor, constant: -5).isActive = true
+        roomLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30).isActive = true
+        
+        roomView.addSubview(selectRoomButton)
         selectRoomButton.topAnchor.constraint(equalTo: roomView.topAnchor, constant: 0).isActive = true
         selectRoomButton.bottomAnchor.constraint(equalTo: roomView.bottomAnchor, constant: 0).isActive = true
         selectRoomButton.leftAnchor.constraint(equalTo: roomView.leftAnchor, constant: 0).isActive = true
@@ -189,9 +202,36 @@ class AdminEquipmentViewController: UIViewController {
         }
     }
     
+    func loadInstruments() {
+        group.enter()
+        var request = URLRequest(url: URL(string: .getAllInstrumentsUrl)!)
+        request.httpMethod = "GET"
+        request.addValue("Bearer \(UserData.bearerToken)", forHTTPHeaderField: "Authorization")
+        
+        let task = URLSession.shared.dataTask(with: request) { [self] data, response, error in
+            guard let data = data else {
+                return
+            }
+            
+            let receivedInstruments = try? JSONDecoder().decode([InstrumentModel].self, from: data)
+            self.instruments = receivedInstruments ?? []
+            group.leave()
+        }
+        task.resume()
+        group.notify(queue: .main) { [weak self] in
+            self?.fillInstrumentsDropDown()
+        }
+    }
+    
     func fillRoomsDropDown() {
         roomsNames = rooms.map { $0.name }
         roomsDropDown.dataSource = roomsNames
+    }
+    
+    
+    func fillInstrumentsDropDown() {
+        instrumentsNames = instruments.map { $0.name }
+        instrumentsDropDown.dataSource = instrumentsNames
     }
     
     @objc private func selectRoomButtonTapped() {
@@ -199,11 +239,20 @@ class AdminEquipmentViewController: UIViewController {
     }
     
     @objc private func selectInstrumentButtonTapped() {
-        //todo
+        instrumentsDropDown.show()
     }
     
     @objc private func addButtontapped() {
-        //todo
+        presenter?.addEquipment(room: selectedRoom!, instrument: selectedInstrument!)
     }
     
+    func showAlert(title: String) {
+        let alert = UIAlertController(title: title, message: nil, preferredStyle: UIAlertController.Style.alert)
+        
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
+            
+        }))
+        
+        present(alert, animated: true, completion: nil)
+    }
 }
