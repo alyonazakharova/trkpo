@@ -53,4 +53,9 @@ public class RoomController {
     public void setRoomService(RoomService roomService) {
         this.roomService = roomService;
     }
+
+    @Autowired
+    public void setRoomInstrumentService(RoomInstrumentService roomInstrumentService) {
+        this.roomInstrumentService = roomInstrumentService;
+    }
 }

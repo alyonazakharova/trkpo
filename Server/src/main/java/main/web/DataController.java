@@ -11,11 +11,14 @@ import org.hibernate.persister.walking.spi.WalkingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import main.service.InstrumentService;
 import main.service.RoomInstrumentService;
 import main.service.RoomService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/data")
@@ -83,6 +86,14 @@ public class DataController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "RoomInstrument not found");
         }
     }
+
+
+    @GetMapping("/all")
+    public ResponseEntity<List<Instrument>> getAllInstrument() {
+        List<Instrument> instrument = instrumentService.getAll();
+        return new ResponseEntity<>(instrument, HttpStatus.OK);
+    }
+
 
     @Autowired
     public void setInstrumentService(InstrumentService instrumentService) {
