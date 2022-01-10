@@ -131,15 +131,16 @@ class ReserveViewController: UIViewController {
         selectRoomButton.rightAnchor.constraint(equalTo: roomView.rightAnchor, constant: 0).isActive = true
         
         // DATE
-        view.addSubview(dateLabel)
-        dateLabel.topAnchor.constraint(equalTo: roomView.bottomAnchor, constant: 30).isActive = true
-        dateLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30).isActive = true
-        
         view.addSubview(dateField)
-        dateField.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 5).isActive = true
+        dateField.topAnchor.constraint(equalTo: roomView.bottomAnchor, constant: 60).isActive = true
         dateField.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30).isActive = true
         dateField.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -30).isActive = true
         dateField.heightAnchor.constraint(equalToConstant: 45).isActive = true
+        
+        view.addSubview(dateLabel)
+        dateLabel.bottomAnchor.constraint(equalTo: dateField.topAnchor, constant: -5).isActive = true
+        dateLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30).isActive = true
+        
         
         let toolBar = UIToolbar()
         toolBar.sizeToFit()

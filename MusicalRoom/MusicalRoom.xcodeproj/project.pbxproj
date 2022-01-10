@@ -50,6 +50,8 @@
 		6DDB3A45278CB8650023E9DF /* InstrumentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DDB3A44278CB8650023E9DF /* InstrumentModel.swift */; };
 		6DDB3A47278CB8CD0023E9DF /* InstrumentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DDB3A46278CB8CD0023E9DF /* InstrumentTableViewCell.swift */; };
 		6DDB3A49278CD3960023E9DF /* RoomInstrumentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DDB3A48278CD3960023E9DF /* RoomInstrumentModel.swift */; };
+		6DDB3A4C278CDA550023E9DF /* MyReservationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DDB3A4B278CDA550023E9DF /* MyReservationsViewController.swift */; };
+		6DDB3A4E278CDA6F0023E9DF /* MyReservationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DDB3A4D278CDA6F0023E9DF /* MyReservationTableViewCell.swift */; };
 		6DFBF9232766AFC600FAAA04 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DFBF9222766AFC600FAAA04 /* AppDelegate.swift */; };
 		6DFBF9252766AFC600FAAA04 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DFBF9242766AFC600FAAA04 /* SceneDelegate.swift */; };
 		6DFBF9272766AFC600FAAA04 /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DFBF9262766AFC600FAAA04 /* InitialViewController.swift */; };
@@ -101,6 +103,8 @@
 		6DDB3A44278CB8650023E9DF /* InstrumentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstrumentModel.swift; sourceTree = "<group>"; };
 		6DDB3A46278CB8CD0023E9DF /* InstrumentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstrumentTableViewCell.swift; sourceTree = "<group>"; };
 		6DDB3A48278CD3960023E9DF /* RoomInstrumentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomInstrumentModel.swift; sourceTree = "<group>"; };
+		6DDB3A4B278CDA550023E9DF /* MyReservationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyReservationsViewController.swift; sourceTree = "<group>"; };
+		6DDB3A4D278CDA6F0023E9DF /* MyReservationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyReservationTableViewCell.swift; sourceTree = "<group>"; };
 		6DFBF91F2766AFC600FAAA04 /* MusicalRoom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicalRoom.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DFBF9222766AFC600FAAA04 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6DFBF9242766AFC600FAAA04 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -138,6 +142,7 @@
 		6D572D8E276F96DA006F8DA9 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				6DDB3A4A278CDA3C0023E9DF /* Reservations */,
 				6D572D8F276F96EB006F8DA9 /* ProfileViewController.swift */,
 				6D572D91276F96F6006F8DA9 /* ProfilePresenter.swift */,
 			);
@@ -307,6 +312,15 @@
 				6DDB3A46278CB8CD0023E9DF /* InstrumentTableViewCell.swift */,
 			);
 			path = AllInstruments;
+			sourceTree = "<group>";
+		};
+		6DDB3A4A278CDA3C0023E9DF /* Reservations */ = {
+			isa = PBXGroup;
+			children = (
+				6DDB3A4B278CDA550023E9DF /* MyReservationsViewController.swift */,
+				6DDB3A4D278CDA6F0023E9DF /* MyReservationTableViewCell.swift */,
+			);
+			path = Reservations;
 			sourceTree = "<group>";
 		};
 		6DFBF9162766AFC500FAAA04 = {
@@ -479,6 +493,7 @@
 				6D64C20D276E076800353ECD /* EquipmentPresenter.swift in Sources */,
 				6DDB3A3F2789B9B90023E9DF /* RoomTableViewCell.swift in Sources */,
 				6DBC6AFB27846456003C3120 /* AllRoomsViewController.swift in Sources */,
+				6DDB3A4E278CDA6F0023E9DF /* MyReservationTableViewCell.swift in Sources */,
 				6DDB3A3C2789B74D0023E9DF /* ReservationPresenter.swift in Sources */,
 				6D64C21B276E670A00353ECD /* SignInResponse.swift in Sources */,
 				6D94CA81276922A2009F7E7B /* Equipment.swift in Sources */,
@@ -503,6 +518,7 @@
 				6D94CA5B2766B8E0009F7E7B /* SignUpViewController.swift in Sources */,
 				6DFBF9252766AFC600FAAA04 /* SceneDelegate.swift in Sources */,
 				6DDB3A232788DD2A0023E9DF /* AdminEqupmentPresenter.swift in Sources */,
+				6DDB3A4C278CDA550023E9DF /* MyReservationsViewController.swift in Sources */,
 				6DDB3A372789ADA70023E9DF /* ReservationTableViewCell.swift in Sources */,
 				6D572D92276F96F6006F8DA9 /* ProfilePresenter.swift in Sources */,
 				6D94CA662767D5EC009F7E7B /* HomeViewController.swift in Sources */,

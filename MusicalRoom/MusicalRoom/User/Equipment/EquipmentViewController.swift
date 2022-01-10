@@ -14,36 +14,6 @@ class EquipmentViewController: UIViewController, UITableViewDataSource, UITableV
     //fixme
     private var presenter: EquipmentPresenter?
     
-    
-    private let nameLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Name"
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 17, weight: .bold)
-        label.textColor = .black
-        return label
-    }()
-    
-    
-    private let appearanceLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Appearance"
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 17, weight: .bold)
-        label.textColor = .black
-        return label
-    }()
-    
-    
-    private let priceLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Price"
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 17, weight: .bold)
-        label.textColor = .black
-        return label
-    }()
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return content.count
     }
@@ -70,25 +40,6 @@ class EquipmentViewController: UIViewController, UITableViewDataSource, UITableV
         return tableView
     }()
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: 50))
-        //        headerView.backgroundColor = .systemPink
-        
-        headerView.addSubview(appearanceLabel)
-        appearanceLabel.centerXAnchor.constraint(equalTo: headerView.centerXAnchor, constant: 0).isActive = true
-        appearanceLabel.centerYAnchor.constraint(equalTo: headerView.centerYAnchor, constant: 0).isActive = true
-        
-        headerView.addSubview(nameLabel)
-        nameLabel.rightAnchor.constraint(equalTo: appearanceLabel.leftAnchor, constant: -50).isActive = true
-        nameLabel.centerYAnchor.constraint(equalTo: headerView.centerYAnchor, constant: 0).isActive = true
-        
-        headerView.addSubview(priceLabel)
-        priceLabel.leftAnchor.constraint(equalTo: appearanceLabel.rightAnchor, constant: 50).isActive = true
-        priceLabel.centerYAnchor.constraint(equalTo: headerView.centerYAnchor, constant: 0).isActive = true
-        
-        return headerView
-    }
-    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 50
     }
@@ -98,7 +49,6 @@ class EquipmentViewController: UIViewController, UITableViewDataSource, UITableV
         
         loadContent()
         
-        //        tableView.backgroundColor = .link
         tableView.dataSource = self
         tableView.delegate = self
         view.addSubview(tableView)
@@ -117,7 +67,7 @@ class EquipmentViewController: UIViewController, UITableViewDataSource, UITableV
         
         let task = URLSession.shared.dataTask(with: request) { [self] data, response, error in
             guard let data = data else {
-                print(error)
+                print("No data")
                 return
             }
             

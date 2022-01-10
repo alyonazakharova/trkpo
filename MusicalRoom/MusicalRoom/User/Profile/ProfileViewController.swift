@@ -11,17 +11,6 @@ class ProfileViewController: UIViewController {
     
     var presenter: ProfilePresenterProtocol?
     
-    private let imageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "person")
-        imageView.tintColor = .gray
-        imageView.contentMode = .scaleAspectFit
-        imageView.layer.masksToBounds = true
-        imageView.layer.borderWidth = 2
-        imageView.layer.borderColor = UIColor.lightGray.cgColor
-        return imageView
-    }()
-    
     private let nameLabel: UILabel = {
         let label = UILabel()
         label.text = "Name"
@@ -69,67 +58,42 @@ class ProfileViewController: UIViewController {
         return field
     }()
     
-    private let usernameLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Username"
-        label.textColor = .black
-        label.font =  UIFont(name: "Sacramento-Regular", size: 30)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private let usernameField: UITextField = {
-        let field = UITextField()
-        field.autocapitalizationType = .none
-        field.autocorrectionType = .no
-        field.returnKeyType = .continue
-        field.layer.cornerRadius = 10
-        field.placeholder = "username"
-        field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 14, height: 0))
-        field.leftViewMode = .always
-        field.backgroundColor = .white
-        field.returnKeyType = .continue
-        field.translatesAutoresizingMaskIntoConstraints = false
-        return field
-    }()
-    
-    private let passwordLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Password"
-        label.textColor = .black
-        label.font =  UIFont(name: "Sacramento-Regular", size: 30)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private let passwordField: UITextField = {
-        let field = UITextField()
-        field.autocapitalizationType = .none
-        field.autocorrectionType = .no
-        field.returnKeyType = .continue
-        field.layer.cornerRadius = 10
-        field.placeholder = "password"
-        field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 14, height: 0))
-        field.leftViewMode = .always
-        field.backgroundColor = .white
-        field.returnKeyType = .continue
-        field.isSecureTextEntry = true
-        field.translatesAutoresizingMaskIntoConstraints = false
-        return field
-    }()
-    
     private let updateButton: UIButton = {
         let button = UIButton()
         button.layer.cornerRadius = 10
         button.titleLabel?.font = UIFont(name: "FasterOne-Regular", size: 25)
-        button.setTitle("Update", for: .normal)
+        button.setTitle("Refresh", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .darkGray
         button.addTarget(self,action: #selector(updateButtonTapped),for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-
+    
+    private let myReservationsButton: UIButton = {
+        let button = UIButton()
+        button.layer.cornerRadius = 10
+        button.titleLabel?.font = UIFont(name: "FasterOne-Regular", size: 25)
+        button.setTitle("My Reservations", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = .darkGray
+        button.addTarget(self,action: #selector(myReservationsButtonTapped),for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    private let logoutButton: UIButton = {
+        let button = UIButton()
+        button.layer.cornerRadius = 10
+        button.titleLabel?.font = UIFont(name: "FasterOne-Regular", size: 25)
+        button.setTitle("Log Out", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = .darkGray
+        button.addTarget(self,action: #selector(logoutButtonTapped),for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter = ProfilePresenter(view: self)
@@ -150,16 +114,6 @@ class ProfileViewController: UIViewController {
     }
     
     func setUI() {
-        // IMAGE
-        view.addSubview(imageView)
-        let size = view.frame.size.width / 4
-        imageView.frame = CGRect(x: (view.frame.size.width - size) / 2,
-                                 y: 100,
-                                 width: size,
-                                 height: size)
-        
-        imageView.layer.cornerRadius = imageView.frame.size.width / 2
-        
         // NAME
         view.addSubview(nameField)
         view.addConstraint(NSLayoutConstraint(item: nameField,
@@ -169,7 +123,7 @@ class ProfileViewController: UIViewController {
                                               attribute: .width,
                                               multiplier: 0.85,
                                               constant: 0))
-        nameField.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 50).isActive = true
+        nameField.topAnchor.constraint(equalTo: view.topAnchor, constant: 150).isActive = true
         nameField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         nameField.heightAnchor.constraint(equalToConstant: 45).isActive = true
         nameField.text = UserData.name
@@ -196,44 +150,33 @@ class ProfileViewController: UIViewController {
         phoneLabel.bottomAnchor.constraint(equalTo: phoneField.topAnchor, constant: -5).isActive = true
         phoneLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30).isActive = true
         
-        // USERNAME
-        view.addSubview(usernameField)
-        view.addConstraint(NSLayoutConstraint(item: usernameField,
+        // BUTTONS
+        view.addSubview(logoutButton)
+        logoutButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100).isActive = true
+        view.addConstraint(NSLayoutConstraint(item: logoutButton,
                                               attribute: .width,
                                               relatedBy: .equal,
                                               toItem: view,
                                               attribute: .width,
                                               multiplier: 0.85,
                                               constant: 0))
-        usernameField.topAnchor.constraint(equalTo: phoneField.bottomAnchor, constant: 60).isActive = true
-        usernameField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        usernameField.heightAnchor.constraint(equalToConstant: 45).isActive = true
-        usernameField.text = UserData.username
+        logoutButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        logoutButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
         
-        view.addSubview(usernameLabel)
-        usernameLabel.bottomAnchor.constraint(equalTo: usernameField.topAnchor, constant: -5).isActive = true
-        usernameLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30).isActive = true
-       
-//        // PASSWORD
-//        view.addSubview(passwordField)
-//        view.addConstraint(NSLayoutConstraint(item: passwordField,
-//                                              attribute: .width,
-//                                              relatedBy: .equal,
-//                                              toItem: view,
-//                                              attribute: .width,
-//                                              multiplier: 0.85,
-//                                              constant: 0))
-//        passwordField.topAnchor.constraint(equalTo: usernameField.bottomAnchor, constant: 60).isActive = true
-//        passwordField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-//        passwordField.heightAnchor.constraint(equalToConstant: 45).isActive = true
-//
-//        view.addSubview(passwordLabel)
-//        passwordLabel.bottomAnchor.constraint(equalTo: passwordField.topAnchor, constant: -5).isActive = true
-//        passwordLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30).isActive = true
+        view.addSubview(myReservationsButton)
+        myReservationsButton.bottomAnchor.constraint(equalTo: logoutButton.topAnchor, constant: -10).isActive = true
+        view.addConstraint(NSLayoutConstraint(item: myReservationsButton,
+                                              attribute: .width,
+                                              relatedBy: .equal,
+                                              toItem: view,
+                                              attribute: .width,
+                                              multiplier: 0.85,
+                                              constant: 0))
+        myReservationsButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        myReservationsButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
         
-        // BUTTON
         view.addSubview(updateButton)
-        updateButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100).isActive = true
+        updateButton.bottomAnchor.constraint(equalTo: myReservationsButton.topAnchor, constant: -10).isActive = true
         view.addConstraint(NSLayoutConstraint(item: updateButton,
                                               attribute: .width,
                                               relatedBy: .equal,
@@ -248,10 +191,8 @@ class ProfileViewController: UIViewController {
     @objc private func updateButtonTapped() {
         guard let name = nameField.text,
               let phone = phoneField.text,
-              let username = usernameField.text,
               !name.isEmpty,
-              !phone.isEmpty,
-              !username.isEmpty
+              !phone.isEmpty
         else {
             let alert = UIAlertController(title: "Ooops!",
                                           message: "You didn't fill some info about yourself",
@@ -261,7 +202,18 @@ class ProfileViewController: UIViewController {
             return
         }
         
-        presenter?.updateButtonTapped(name: name, phone: phone, username: username)
+        presenter?.updateButtonTapped(name: name, phone: phone, username: UserData.username)
+    }
+    
+    @objc private func myReservationsButtonTapped() {
+        let vc = MyReservationsViewController()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @objc private func logoutButtonTapped() {
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyBoard.instantiateViewController(withIdentifier: "loginVC") as! UIViewController
+        self.present(vc, animated: true, completion: nil)
     }
     
     func showAlert(title: String) {

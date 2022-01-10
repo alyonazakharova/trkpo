@@ -40,4 +40,7 @@ extension String {
     
     //POST request to add instrument to the room
     static let addInstrumentToRoomUrl = "http://localhost:8080/data/room_instrument"
+    
+    //GET request to get customer's reservations
+    static let getUserReservationsUrl = "http://localhost:8080/reservations/customer" //{id}
 }

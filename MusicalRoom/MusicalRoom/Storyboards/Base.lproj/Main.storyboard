@@ -80,7 +80,7 @@
         <!--Login View Controller-->
         <scene sceneID="UqP-cr-Vfa">
             <objects>
-                <viewController id="tpC-Mu-ma1" customClass="LoginViewController" customModule="MusicalRoom" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="loginVC" id="tpC-Mu-ma1" customClass="LoginViewController" customModule="MusicalRoom" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Sg1-z9-Cz8">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -48,13 +48,13 @@ class InstrumentTableViewCell: UITableViewCell {
         super.layoutSubviews()
           
         nameLabel.frame = CGRect(x: 30,
-                                 y: 20,
+                                 y: 10,
                                  width: 300,
                                  height: contentView.frame.size.height/2)
         
         
         descriptionLabel.frame = CGRect(x: 30,
-                                 y: 40,
+                                 y: 30,
                                  width: 300,
                                  height: contentView.frame.size.height/2)
         

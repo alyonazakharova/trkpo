@@ -62,14 +62,21 @@ class LoginPresenter: LoginPresenterProtocol {
                 self?.view?.showAlert()
                 return
             }
-            self?.navigateToMainScreen()
+            let isAdmin = username == "admin"
+            self?.navigateToMainScreen(isAdmin: isAdmin)
         }
     }
     
-    func navigateToMainScreen() {
+    func navigateToMainScreen(isAdmin: Bool) {
         let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-//        let view = storyboard.instantiateViewController(withIdentifier: "tabBar") as! UIViewController
-        let view = storyboard.instantiateViewController(withIdentifier: "adminTabBar") as! UIViewController
+        
+        var view: UIViewController
+        if (isAdmin) {
+            view = storyboard.instantiateViewController(withIdentifier: "adminTabBar") as! UIViewController
+        } else {
+            view = storyboard.instantiateViewController(withIdentifier: "tabBar") as! UIViewController
+        }
+        
         view.modalPresentationStyle = .fullScreen
         self.view?.present(view, animated: true, completion: nil)
     }
