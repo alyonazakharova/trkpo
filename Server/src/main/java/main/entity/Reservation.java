@@ -21,6 +21,8 @@ public class Reservation {
     @JoinColumn(nullable = false)
     private Customer customer;
 
+    private boolean confirmed;
+
     public Reservation() {
     }
 
@@ -28,6 +30,13 @@ public class Reservation {
         this.date = date;
         this.room = room;
         this.customer = customer;
+    }
+
+    public Reservation(Date date, Room room, Customer customer, boolean confirmed) {
+        this.date = date;
+        this.room = room;
+        this.customer = customer;
+        this.confirmed = confirmed;
     }
 
     public Long getId() {
@@ -60,5 +69,13 @@ public class Reservation {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    public boolean isConfirmed() {
+        return confirmed;
+    }
+
+    public void setConfirmed(boolean confirmed) {
+        this.confirmed = confirmed;
     }
 }

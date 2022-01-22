@@ -5,7 +5,7 @@ import main.entity.Reservation;
 import java.util.List;
 
 public interface ReservationService {
-    void add(Reservation customer);
+    void add(Reservation reservation);
 
     void delete(long id);
 
@@ -14,4 +14,6 @@ public interface ReservationService {
     List<Reservation> getAllByCustomer(long id);
 
     List<Reservation> getAll();
+
+    Reservation getById(long id);
 }

@@ -16,8 +16,8 @@ public class ReservationServiceImpl implements ReservationService {
     private ReservationRepository reservationRepository;
 
     @Override
-    public void add(Reservation customer) {
-        reservationRepository.save(customer);
+    public void add(Reservation reservation) {
+        reservationRepository.save(reservation);
     }
 
     @Override
@@ -49,5 +49,11 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public List<Reservation> getAll() {
         return (List<Reservation>) reservationRepository.findAll();
+    }
+
+    @Override
+    public Reservation getById(long id) {
+        Optional<Reservation> reservation = reservationRepository.findById(id);
+        return reservation.orElse(null);
     }
 }

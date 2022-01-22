@@ -7,6 +7,8 @@ public class ReservationModel {
 
     private Long customerId;
 
+    private boolean confirmed;
+
     public String getDate() {
         return date;
     }
@@ -29,5 +31,13 @@ public class ReservationModel {
 
     public void setCustomerId(Long customerId) {
         this.customerId = customerId;
+    }
+
+    public boolean isConfirmed() {
+        return confirmed;
+    }
+
+    public void setConfirmed(boolean confirmed) {
+        this.confirmed = confirmed;
     }
 }

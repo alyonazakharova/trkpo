@@ -47,6 +47,18 @@ public class ReservationController {
         }
     }
 
+    @PutMapping("/{id}")
+    public void changeConfirmationStatus(@PathVariable("id") long id) {
+        try {
+            Reservation reservation = reservationService.getById(id);
+            boolean currentStatus = reservation.isConfirmed();
+            reservation.setConfirmed(!currentStatus);
+            reservationService.add(reservation);
+        } catch (EntityNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        }
+    }
+
     @DeleteMapping("/customer/{id}")
     public void deleteCustomerReservations(@PathVariable("id") long id) {
         try {
