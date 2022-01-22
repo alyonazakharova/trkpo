@@ -8,9 +8,9 @@
 import UIKit
 
 class MyReservationsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-
+    
     var reservations = [ReservationModel]()
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return reservations.count
     }
@@ -59,16 +59,37 @@ class MyReservationsViewController: UIViewController, UITableViewDataSource, UIT
     
     @objc func deleteButtonTapped(sender: UIButton) {
         let alert = UIAlertController(title: "Delete reservation?", message: nil, preferredStyle: UIAlertController.Style.alert)
-
+        
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
-            //todo
-            self.tableView.reloadData()
+            var request = URLRequest(url: URL(string: .deleteReservationUrl + String(self.reservations[sender.tag].id))!)
+            
+            request.httpMethod = "DELETE"
+            request.addValue("Bearer \(UserData.bearerToken)", forHTTPHeaderField: "Authorization")
+            
+            let task = URLSession.shared.dataTask(with: request) { [self] data, response, error in
+                guard error == nil else {
+                    return
+                }
+                if let httpResponse = response as? HTTPURLResponse {
+                    print(httpResponse.statusCode)
+                    if (httpResponse.statusCode != 200) {
+                        print("UNSUCCESSFUL WITH CODE: \(httpResponse.statusCode)")
+                        return
+                    }
+                }
+                DispatchQueue.main.async {
+                    reservations.remove(at: sender.tag)
+                    self.tableView.reloadData()
+                    showAlert(title: "Reservation was successfully deleted")
+                }
+            }
+            task.resume()
         }))
-
+        
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
-              
+            
         }))
-
+        
         present(alert, animated: true, completion: nil)
     }
     
@@ -76,7 +97,7 @@ class MyReservationsViewController: UIViewController, UITableViewDataSource, UIT
         var request = URLRequest(url: URL(string: .getUserReservationsUrl + "/\(UserData.customerId)")!)
         request.httpMethod = "GET"
         request.addValue("Bearer \(UserData.bearerToken)", forHTTPHeaderField: "Authorization")
-
+        
         let task = URLSession.shared.dataTask(with: request) { [self] data, response, error in
             guard let data = data else {
                 print("No data")
@@ -84,14 +105,24 @@ class MyReservationsViewController: UIViewController, UITableViewDataSource, UIT
             }
             
             guard let receivedReservations = try? JSONDecoder().decode([ReservationModel].self, from: data) else {
-              print("Error: Couldn't decode data")
-              return
+                print("Error: Couldn't decode data")
+                return
             }
             self.reservations = receivedReservations
             DispatchQueue.main.async {
-              self.tableView.reloadData()
+                self.tableView.reloadData()
             }
         }
         task.resume()
+    }
+    
+    func showAlert(title: String) {
+        let alert = UIAlertController(title: title, message: nil, preferredStyle: UIAlertController.Style.alert)
+        
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
+            
+        }))
+        
+        present(alert, animated: true, completion: nil)
     }
 }

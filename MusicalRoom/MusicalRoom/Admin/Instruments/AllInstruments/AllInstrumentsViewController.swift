@@ -61,8 +61,29 @@ class AllInstrumentsViewController: UIViewController, UITableViewDataSource, UIT
         let alert = UIAlertController(title: "Delete instrument?", message: nil, preferredStyle: UIAlertController.Style.alert)
 
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
-            //todo
-            self.tableView.reloadData()
+            var request = URLRequest(url: URL(string: .deleteInstrumentUrl + String(self.instruments[sender.tag].id))!)
+            
+            request.httpMethod = "DELETE"
+            request.addValue("Bearer \(UserData.bearerToken)", forHTTPHeaderField: "Authorization")
+            
+            let task = URLSession.shared.dataTask(with: request) { [self] data, response, error in
+                guard error == nil else {
+                    return
+                }
+                if let httpResponse = response as? HTTPURLResponse {
+                    print(httpResponse.statusCode)
+                    if (httpResponse.statusCode != 200) {
+                        print("UNSUCCESSFUL WITH CODE: \(httpResponse.statusCode)")
+                        return
+                    }
+                }
+                DispatchQueue.main.async {
+                    instruments.remove(at: sender.tag)
+                    self.tableView.reloadData()
+                    showAlert(title: "Instrument was successfully deleted")
+                }
+            }
+            task.resume()
         }))
 
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
@@ -93,5 +114,15 @@ class AllInstrumentsViewController: UIViewController, UITableViewDataSource, UIT
             }
         }
         task.resume()
+    }
+    
+    func showAlert(title: String) {
+        let alert = UIAlertController(title: title, message: nil, preferredStyle: UIAlertController.Style.alert)
+        
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
+            
+        }))
+        
+        present(alert, animated: true, completion: nil)
     }
 }

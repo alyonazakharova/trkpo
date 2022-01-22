@@ -42,5 +42,19 @@ extension String {
     static let addInstrumentToRoomUrl = "http://localhost:8080/data/room_instrument"
     
     //GET request to get customer's reservations
-    static let getUserReservationsUrl = "http://localhost:8080/reservations/customer" //{id}
+    static let getUserReservationsUrl = "http://localhost:8080/reservations/customer" // {id}
+    
+    //DELETE user's reservation by id
+    static let deleteReservationUrl = "http://localhost:8080/reservations/customer/" // + reservation id
+    
+    //DELETE room by id
+    static let deleteRoomUrl = "http://localhost:8080/data/room/" // + room id
+    
+    //DELETE instrument by id
+    static let deleteInstrumentUrl = "http://localhost:8080/data/instrument/" // + instrument id
+    
+    //PUT request to change confirmation status
+    static let updateConfirmationUrl = "http://localhost:8080/reservations/" // + reservation id
+    
+    
 }

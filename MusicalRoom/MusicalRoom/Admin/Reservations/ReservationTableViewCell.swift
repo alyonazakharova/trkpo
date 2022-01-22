@@ -80,6 +80,13 @@ class ReservationTableViewCell: UITableViewCell {
     func configure(with reservation: ReservationModel) {
         dateLabel.text = reservation.date
         roomNameLabel.text = reservation.room.name
-        confirmationLabel.text = "Not confirmed"
+        if (reservation.confirmed) {
+            confirmationLabel.text = "Confirmed"
+            confirmationLabel.textColor = .green
+        } else {
+            confirmationLabel.text = "Not confirmed"
+            confirmationLabel.textColor = .red
+        }
+        
     }
 }
