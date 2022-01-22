@@ -33,7 +33,7 @@
         <scene sceneID="s0Q-VK-gzU">
             <objects>
                 <navigationController id="FwB-MT-F1k" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Instruments" id="A2F-u5-1cB"/>
+                    <tabBarItem key="tabBarItem" title="Instruments" image="instruments-icon" id="A2F-u5-1cB"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="yZW-XB-rbJ">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -301,7 +301,7 @@
         <scene sceneID="6Pb-ij-7Wy">
             <objects>
                 <navigationController id="apP-lZ-Po9" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Rooms" id="tXx-Pi-qnB"/>
+                    <tabBarItem key="tabBarItem" title="Rooms" image="rooms-icon" id="tXx-Pi-qnB"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="YF3-Al-EWM">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -318,7 +318,7 @@
         <scene sceneID="Ppi-Na-GEW">
             <objects>
                 <navigationController id="mED-DS-3A1" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Reservations" id="s8C-2z-zi1"/>
+                    <tabBarItem key="tabBarItem" title="Reservations" image="reservations-icon" id="s8C-2z-zi1"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="c5L-r9-kav">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -351,7 +351,7 @@
         <scene sceneID="tjO-AC-yMt">
             <objects>
                 <navigationController id="ldk-ga-p6E" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Equipment" id="vCo-mL-nbf"/>
+                    <tabBarItem key="tabBarItem" title="Equipment" image="admin-equipment-icon" id="vCo-mL-nbf"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="gSg-pk-cqE">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -414,10 +414,14 @@
         </scene>
     </scenes>
     <resources>
+        <image name="admin-equipment-icon" width="30" height="30"/>
         <image name="equipment-icon" width="16" height="19"/>
         <image name="home-icon" width="16" height="18"/>
+        <image name="instruments-icon" width="30" height="30"/>
         <image name="profile-icon" width="22" height="22"/>
+        <image name="reservations-icon" width="29" height="30"/>
         <image name="reserve-icon" width="15" height="20"/>
+        <image name="rooms-icon" width="30" height="30"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
