@@ -1,29 +1,29 @@
 //
-//  ReservationPresenter.swift
+//  AllInStrumentsPresenter.swift
 //  MusicalRoom
 //
-//  Created by Алена Захарова on 08.01.2022.
+//  Created by Алена Захарова on 13.02.2022.
 //
 
 import Foundation
 import UIKit
 
-protocol ReservationPresenterDelegate: AnyObject {
-    func presentReservations(reservations: [ReservationModel])
+protocol AllInstrumentsPresenterDelegate: AnyObject {
+    func presentInstruments(instruments: [InstrumentModel])
 }
 
-typealias PresenterDelegateReservation = ReservationPresenterDelegate & UIViewController
+typealias PresenterDelegateInstruments = AllInstrumentsPresenterDelegate & UIViewController
 
-class ReservationPresenter {
+class AllInstrumentsPresenter {
     
-    weak var delegate: PresenterDelegateReservation?
+    weak var delegate: PresenterDelegateInstruments?
     
-    public func setViewDelegate(delegate: PresenterDelegateReservation) {
+    public func setViewDelegate(delegate: PresenterDelegateInstruments) {
         self.delegate = delegate
     }
     
-    public func getReservations() {
-        var request = URLRequest(url: URL(string: .getAllReservationsUrl)!)
+    public func getInstruments() {
+        var request = URLRequest(url: URL(string: .getAllInstrumentsUrl)!)
         request.httpMethod = "GET"
         request.addValue("Bearer \(UserData.bearerToken)", forHTTPHeaderField: "Authorization")
 
@@ -33,19 +33,18 @@ class ReservationPresenter {
                 return
             }
             
-            guard let receivedReservations = try? JSONDecoder().decode([ReservationModel].self, from: data) else {
+            guard let receivedInstruments = try? JSONDecoder().decode([InstrumentModel].self, from: data) else {
               print("Error: Couldn't decode data")
               return
             }
-            self.delegate?.presentReservations(reservations: receivedReservations)
+            self.delegate?.presentInstruments(instruments: receivedInstruments)
         }
         task.resume()
     }
     
-    public func confirmReservation(reservationId: String) {
-        var request = URLRequest(url: URL(string: .updateConfirmationUrl + reservationId)!)
-        
-        request.httpMethod = "PUT"
+    public func deleteInstrument(instrumentId: String) {
+        var request = URLRequest(url: URL(string: .deleteInstrumentUrl + instrumentId)!)
+        request.httpMethod = "DELETE"
         request.addValue("Bearer \(UserData.bearerToken)", forHTTPHeaderField: "Authorization")
         
         let task = URLSession.shared.dataTask(with: request) { [self] data, response, error in
@@ -59,7 +58,7 @@ class ReservationPresenter {
                     return
                 }
             }
-            self.getReservations()
+            self.getInstruments()
         }
         task.resume()
     }

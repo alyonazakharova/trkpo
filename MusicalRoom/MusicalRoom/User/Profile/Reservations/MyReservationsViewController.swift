@@ -7,7 +7,9 @@
 
 import UIKit
 
-class MyReservationsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class MyReservationsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, MyReservationsPresenterDelegate {
+    
+    private let presenter = MyReservationsPresenter()
     
     var reservations = [ReservationModel]()
     
@@ -43,13 +45,14 @@ class MyReservationsViewController: UIViewController, UITableViewDataSource, UIT
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        loadContent()
-        
+      
         tableView.backgroundColor = .white
         tableView.dataSource = self
         tableView.delegate = self
         view.addSubview(tableView)
+        
+        presenter.setViewDelegate(delegate: self)
+        presenter.getReservations()
     }
     
     override func viewDidLayoutSubviews() {
@@ -57,33 +60,19 @@ class MyReservationsViewController: UIViewController, UITableViewDataSource, UIT
         tableView.frame = view.bounds
     }
     
+    func presentReservations(reservations: [ReservationModel]) {
+        self.reservations = reservations
+        
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+    
     @objc func deleteButtonTapped(sender: UIButton) {
         let alert = UIAlertController(title: "Delete reservation?", message: nil, preferredStyle: UIAlertController.Style.alert)
         
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
-            var request = URLRequest(url: URL(string: .deleteReservationUrl + String(self.reservations[sender.tag].id))!)
-            
-            request.httpMethod = "DELETE"
-            request.addValue("Bearer \(UserData.bearerToken)", forHTTPHeaderField: "Authorization")
-            
-            let task = URLSession.shared.dataTask(with: request) { [self] data, response, error in
-                guard error == nil else {
-                    return
-                }
-                if let httpResponse = response as? HTTPURLResponse {
-                    print(httpResponse.statusCode)
-                    if (httpResponse.statusCode != 200) {
-                        print("UNSUCCESSFUL WITH CODE: \(httpResponse.statusCode)")
-                        return
-                    }
-                }
-                DispatchQueue.main.async {
-                    reservations.remove(at: sender.tag)
-                    self.tableView.reloadData()
-                    showAlert(title: "Reservation was successfully deleted")
-                }
-            }
-            task.resume()
+            self.presenter.deleteReservation(reservationId: String(self.reservations[sender.tag].id))
         }))
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
@@ -91,29 +80,6 @@ class MyReservationsViewController: UIViewController, UITableViewDataSource, UIT
         }))
         
         present(alert, animated: true, completion: nil)
-    }
-    
-    func loadContent() {
-        var request = URLRequest(url: URL(string: .getUserReservationsUrl + "/\(UserData.customerId)")!)
-        request.httpMethod = "GET"
-        request.addValue("Bearer \(UserData.bearerToken)", forHTTPHeaderField: "Authorization")
-        
-        let task = URLSession.shared.dataTask(with: request) { [self] data, response, error in
-            guard let data = data else {
-                print("No data")
-                return
-            }
-            
-            guard let receivedReservations = try? JSONDecoder().decode([ReservationModel].self, from: data) else {
-                print("Error: Couldn't decode data")
-                return
-            }
-            self.reservations = receivedReservations
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-        }
-        task.resume()
     }
     
     func showAlert(title: String) {

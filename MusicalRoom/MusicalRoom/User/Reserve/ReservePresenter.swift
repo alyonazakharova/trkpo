@@ -6,28 +6,25 @@
 //
 
 import Foundation
+import UIKit
 
-protocol ReservePresenterProtocol: AnyObject {
-    func reserveButtonTapped(roomId: Int, date: String)
-    init(view: ReserveViewController)
+protocol ReservePresenterDelegate: AnyObject {
+    func presentRooms(rooms: [RoomModel])
+    func showAlert(title: String)
 }
 
-class ReservePresenter: ReservePresenterProtocol {
-    private let group = DispatchGroup()
-    private var errorOccured: Bool
+typealias PresenterDelegateReserve = ReservePresenterDelegate & UIViewController
+
+class ReservePresenter {
     
-    var view: ReserveViewController?
+    weak var delegate: PresenterDelegateReserve?
     
-    required init(view: ReserveViewController) {
-        self.view = view
-        self.errorOccured = false
+    public func setViewDelegate(delegate: PresenterDelegateReserve) {
+        self.delegate = delegate
     }
     
-    func reserveButtonTapped(roomId: Int, date: String) {
-        print("DATE: \(date)")
-        print("ROOM ID: \(roomId)")
-        
-        var request = URLRequest(url: URL(string: "http://localhost:8080/reservations/add")!)
+    func createReservation(roomId: Int, date: String) {
+        var request = URLRequest(url: URL(string: .addReservation)!)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("Bearer \(UserData.bearerToken)", forHTTPHeaderField: "Authorization")
@@ -39,30 +36,37 @@ class ReservePresenter: ReservePresenterProtocol {
         ]
         
         request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: .fragmentsAllowed)
-    
-        group.enter()
+
         let task = URLSession.shared.dataTask(with: request) { _, response, error in
             guard error == nil else {
                 return
             }
             if let httpResponse = response as? HTTPURLResponse {
-                print(httpResponse.statusCode)
                 if (httpResponse.statusCode != 200) {
-                    self.errorOccured = true
                     print("UNSUCCESSFUL WITH CODE: \(httpResponse.statusCode)")
+                    return
                 }
             }
-            self.group.leave()
-
+            DispatchQueue.main.async {
+                self.delegate?.showAlert(title: "Woohoo. You successfully reserved a room")
+            }
         }
         task.resume()
-        
-        group.notify(queue: .main) { [weak self] in
-            if (self?.errorOccured != nil && self?.errorOccured == true) {
-                self?.view?.showAlert(title: "Oops. Seems like this room is already reserved for this day")
+    }
+    
+    func getRooms() {
+        var request = URLRequest(url: URL(string: .getAllRoomsUrl)!)
+        request.httpMethod = "GET"
+        request.addValue("Bearer \(UserData.bearerToken)", forHTTPHeaderField: "Authorization")
+
+        let task = URLSession.shared.dataTask(with: request) { [weak self] data, _, error in
+            guard let data = data else {
                 return
             }
-            self?.view?.showSuccessAlert()
+            
+            let receivedRooms = try? JSONDecoder().decode([RoomModel].self, from: data)
+            self?.delegate?.presentRooms(rooms: receivedRooms!)
         }
+        task.resume()
     }
 }

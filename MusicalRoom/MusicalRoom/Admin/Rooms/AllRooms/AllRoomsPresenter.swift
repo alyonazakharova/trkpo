@@ -6,30 +6,58 @@
 //
 
 import Foundation
+import UIKit
 
-protocol AllRoomsPresenterProtocol: AnyObject {
-    init(view: AllRoomsViewController)
-    func loadRooms()
-    func removeRoom()
+protocol AllRoomsPresenterDelegate: AnyObject {
+    func presentRooms(rooms: [RoomModel])
 }
 
+typealias PresenterDelegate = AllRoomsPresenterDelegate & UIViewController
 
-class AllRoomsPresenter: AllRoomsPresenterProtocol {
-    private let group = DispatchGroup()
-    private var errorOccured: Bool
+
+class AllRoomsPresenter {
     
-    var view: AllRoomsViewController?
+    weak var delegate: PresenterDelegate?
     
-    required init(view: AllRoomsViewController) {
-        self.view = view
-        self.errorOccured = false
+    public func setViewDelegate(delegate: PresenterDelegate) {
+        self.delegate = delegate
     }
     
-    func loadRooms() {
-        //todo
+    public func getRooms() {
+        var request = URLRequest(url: URL(string: .getAllRoomsUrl)!)
+        request.httpMethod = "GET"
+        request.addValue("Bearer \(UserData.bearerToken)", forHTTPHeaderField: "Authorization")
+
+        let task = URLSession.shared.dataTask(with: request) { [weak self] data, _, error in
+            guard let data = data else {
+                return
+            }
+            
+            let receivedRooms = try? JSONDecoder().decode([RoomModel].self, from: data)
+            self?.delegate?.presentRooms(rooms: receivedRooms!)
+        }
+        task.resume()
     }
     
-    func removeRoom() {
-        //todo
+    public func deleteRoom(roomId: String) {
+        var request = URLRequest(url: URL(string: .deleteRoomUrl + roomId)!)
+        
+        request.httpMethod = "DELETE"
+        request.addValue("Bearer \(UserData.bearerToken)", forHTTPHeaderField: "Authorization")
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard error == nil else {
+                return
+            }
+            if let httpResponse = response as? HTTPURLResponse {
+                print(httpResponse.statusCode)
+                if (httpResponse.statusCode != 200) {
+                    print("UNSUCCESSFUL WITH CODE: \(httpResponse.statusCode)")
+                    return
+                }
+            }
+            self.getRooms()
+        }
+        task.resume()
     }
 }

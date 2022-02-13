@@ -35,6 +35,9 @@ extension String {
     //GET request to get all reservations
     static let getAllReservationsUrl = "http://localhost:8080/reservations/all"
     
+    //POST request to get add new reservation
+    static let addReservation = "http://localhost:8080/reservations/add"
+    
     //GET request to get all instruments
     static let getAllInstrumentsUrl = "http://localhost:8080/data/all"
     

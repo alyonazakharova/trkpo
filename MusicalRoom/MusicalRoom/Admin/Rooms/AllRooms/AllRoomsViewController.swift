@@ -7,10 +7,12 @@
 
 import UIKit
 
-class AllRoomsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-
-    var rooms = [RoomModel]()
-
+class AllRoomsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AllRoomsPresenterDelegate {
+    
+    private let presenter = AllRoomsPresenter()
+    
+    private var rooms = [RoomModel]()
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return rooms.count
     }
@@ -43,13 +45,14 @@ class AllRoomsViewController: UIViewController, UITableViewDataSource, UITableVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        loadContent()
-        
+
         tableView.backgroundColor = .white
         tableView.dataSource = self
         tableView.delegate = self
         view.addSubview(tableView)
+        
+        presenter.setViewDelegate(delegate: self)
+        presenter.getRooms()
     }
     
     override func viewDidLayoutSubviews() {
@@ -57,63 +60,26 @@ class AllRoomsViewController: UIViewController, UITableViewDataSource, UITableVi
         tableView.frame = view.bounds
     }
     
-    @objc func deleteButtonTapped(sender: UIButton) {
-        let alert = UIAlertController(title: "Delete room?", message: nil, preferredStyle: UIAlertController.Style.alert)
-
-        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
-            var request = URLRequest(url: URL(string: .deleteRoomUrl + String(self.rooms[sender.tag].id))!)
-            
-            request.httpMethod = "DELETE"
-            request.addValue("Bearer \(UserData.bearerToken)", forHTTPHeaderField: "Authorization")
-            
-            let task = URLSession.shared.dataTask(with: request) { [self] data, response, error in
-                guard error == nil else {
-                    return
-                }
-                if let httpResponse = response as? HTTPURLResponse {
-                    print(httpResponse.statusCode)
-                    if (httpResponse.statusCode != 200) {
-                        print("UNSUCCESSFUL WITH CODE: \(httpResponse.statusCode)")
-                        return
-                    }
-                }
-                DispatchQueue.main.async {
-                    rooms.remove(at: sender.tag)
-                    self.tableView.reloadData()
-                    showAlert(title: "Room was successfully deleted")
-                }
-            }
-            task.resume()
-        }))
-
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
-              
-        }))
-
-        present(alert, animated: true, completion: nil)
+    func presentRooms(rooms: [RoomModel]) {
+        self.rooms = rooms
+        
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
     
-    func loadContent() {
-        var request = URLRequest(url: URL(string: .getAllRoomsUrl)!)
-        request.httpMethod = "GET"
-        request.addValue("Bearer \(UserData.bearerToken)", forHTTPHeaderField: "Authorization")
-
-        let task = URLSession.shared.dataTask(with: request) { [self] data, response, error in
-            guard let data = data else {
-                print("No data")
-                return
-            }
+    @objc func deleteButtonTapped(sender: UIButton) {
+        let alert = UIAlertController(title: "Delete room?", message: nil, preferredStyle: UIAlertController.Style.alert)
+        
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
+            self.presenter.deleteRoom(roomId: String(self.rooms[sender.tag].id))
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
             
-            guard let receivedRooms = try? JSONDecoder().decode([RoomModel].self, from: data) else {
-              print("Error: Couldn't decode data")
-              return
-            }
-            self.rooms = receivedRooms
-            DispatchQueue.main.async {
-              self.tableView.reloadData()
-            }
-        }
-        task.resume()
+        }))
+        
+        present(alert, animated: true, completion: nil)
     }
     
     func showAlert(title: String) {

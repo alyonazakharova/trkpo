@@ -87,6 +87,5 @@ class ReservationTableViewCell: UITableViewCell {
             confirmationLabel.text = "Not confirmed"
             confirmationLabel.textColor = .red
         }
-        
     }
 }

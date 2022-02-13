@@ -7,9 +7,9 @@
 
 import UIKit
 
-class ReservationViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ReservationViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ReservationPresenterDelegate {
     
-    var presenter: ReservationPresenterProtocol?
+    private let presenter = ReservationPresenter()
     
     var reservations = [ReservationModel]()
 
@@ -46,14 +46,13 @@ class ReservationViewController: UIViewController, UITableViewDataSource, UITabl
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        presenter = ReservationPresenter(view: self)
-        
-        loadContent()
-        
         tableView.backgroundColor = .white
         tableView.dataSource = self
         tableView.delegate = self
         view.addSubview(tableView)
+        
+        presenter.setViewDelegate(delegate: self)
+        presenter.getReservations()
     }
     
     override func viewDidLayoutSubviews() {
@@ -61,34 +60,19 @@ class ReservationViewController: UIViewController, UITableViewDataSource, UITabl
         tableView.frame = view.bounds
     }
     
+    func presentReservations(reservations: [ReservationModel]) {
+        self.reservations = reservations
+        
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+    
     @objc func confrirmButtonTapped(sender: UIButton) {
         let alert = UIAlertController(title: "Confirm reservation?", message: nil, preferredStyle: UIAlertController.Style.alert)
 
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
-            var request = URLRequest(url: URL(string: .updateConfirmationUrl + String(self.reservations[sender.tag].id))!)
-            
-            request.httpMethod = "PUT"
-            request.addValue("Bearer \(UserData.bearerToken)", forHTTPHeaderField: "Authorization")
-            
-            let task = URLSession.shared.dataTask(with: request) { [self] data, response, error in
-                guard error == nil else {
-                    return
-                }
-                if let httpResponse = response as? HTTPURLResponse {
-                    print(httpResponse.statusCode)
-                    if (httpResponse.statusCode != 200) {
-                        print("UNSUCCESSFUL WITH CODE: \(httpResponse.statusCode)")
-                        return
-                    }
-                }
-                DispatchQueue.main.async {
-                    reservations.removeAll()
-                    loadContent()
-                    self.tableView.reloadData()
-                    showAlert(title: "Reservation was confirmed")
-                }
-            }
-            task.resume()
+            self.presenter.confirmReservation(reservationId: String(self.reservations[sender.tag].id))
         }))
 
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
@@ -96,29 +80,6 @@ class ReservationViewController: UIViewController, UITableViewDataSource, UITabl
         }))
 
         present(alert, animated: true, completion: nil)
-    }
-    
-    func loadContent() {
-        var request = URLRequest(url: URL(string: .getAllReservationsUrl)!)
-        request.httpMethod = "GET"
-        request.addValue("Bearer \(UserData.bearerToken)", forHTTPHeaderField: "Authorization")
-
-        let task = URLSession.shared.dataTask(with: request) { [self] data, response, error in
-            guard let data = data else {
-                print("No data")
-                return
-            }
-            
-            guard let receivedReservations = try? JSONDecoder().decode([ReservationModel].self, from: data) else {
-              print("Error: Couldn't decode data")
-              return
-            }
-            self.reservations = receivedReservations
-            DispatchQueue.main.async {
-              self.tableView.reloadData()
-            }
-        }
-        task.resume()
     }
     
     func showAlert(title: String) {

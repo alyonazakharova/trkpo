@@ -8,13 +8,12 @@
 import UIKit
 import DropDown
 
-class ReserveViewController: UIViewController {
-    private let group = DispatchGroup()
-    var presenter: ReservePresenterProtocol?
+class ReserveViewController: UIViewController, ReservePresenterDelegate {
+    private let presenter = ReservePresenter()
     
-    var selectedRoom: Room?
+    var selectedRoom: RoomModel?
     var selectedDate: Date?
-    var rooms = [Room]()
+    var rooms = [RoomModel]()
     var roomsNames = [String]()
     
     private let roomLabel: UILabel = {
@@ -78,14 +77,12 @@ class ReserveViewController: UIViewController {
     let dropDown = DropDown()
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        presenter = ReservePresenter(view: self)
-        
+        super.viewDidLoad() 
         setBackground()
         setUI()
         
-        loadRooms()
+        presenter.setViewDelegate(delegate: self)
+        presenter.getRooms()
         
         dropDown.anchorView = roomView
         
@@ -167,28 +164,6 @@ class ReserveViewController: UIViewController {
         reserveButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
     }
     
-    //todo вынести в презентер
-    func loadRooms() {
-        group.enter()
-        var request = URLRequest(url: URL(string: "http://localhost:8080/rooms/all")!)
-        request.httpMethod = "GET"
-        request.addValue("Bearer \(UserData.bearerToken)", forHTTPHeaderField: "Authorization")
-        
-        let task = URLSession.shared.dataTask(with: request) { [self] data, response, error in
-            guard let data = data else {
-                return
-            }
-            
-            let roomsArray = try? JSONDecoder().decode([Room].self, from: data)
-            self.rooms = roomsArray ?? []
-            group.leave()
-        }
-        task.resume()
-        group.notify(queue: .main) { [weak self] in
-            self?.fillDropDown()
-        }
-    }
-    
     func fillDropDown() {
         roomsNames = rooms.map { $0.name }
         dropDown.dataSource = roomsNames
@@ -196,6 +171,14 @@ class ReserveViewController: UIViewController {
     
     @objc private func selectRoomButtonTapped() {
         dropDown.show()
+    }
+    
+    func presentRooms(rooms: [RoomModel]) {
+        self.rooms = rooms
+        
+        DispatchQueue.main.async {
+            self.fillDropDown()
+        }
     }
     
     @objc private func doneButtonTapped() {
@@ -209,7 +192,7 @@ class ReserveViewController: UIViewController {
     
     @objc private func reserveButtonTapped() {
         if (selectedRoom != nil && selectedDate != nil) {
-            presenter?.reserveButtonTapped(roomId: selectedRoom!.id, date: dateField.text!)
+            presenter.createReservation(roomId: selectedRoom!.id, date: dateField.text!)
         } else {
         showAlert(title: "Ooops. You didn't fill something")
         }
@@ -217,16 +200,6 @@ class ReserveViewController: UIViewController {
     
     func showAlert(title: String) {
         let alert = UIAlertController(title: title, message: nil, preferredStyle: UIAlertController.Style.alert)
-        
-        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
-            
-        }))
-        
-        present(alert, animated: true, completion: nil)
-    }
-    
-    func showSuccessAlert() {
-        let alert = UIAlertController(title: "Woohoo. You successfully reserved a room", message: nil, preferredStyle: UIAlertController.Style.alert)
         
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
             
