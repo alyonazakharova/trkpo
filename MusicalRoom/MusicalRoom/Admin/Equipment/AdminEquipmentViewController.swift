@@ -84,6 +84,18 @@ class AdminEquipmentViewController: UIViewController {
         return button
     }()
     
+    private let logoutButton: UIButton = {
+        let button = UIButton()
+        button.layer.cornerRadius = 10
+        button.setTitle("Log Out", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = UIFont(name: "FasterOne-Regular", size: 20)
+        button.backgroundColor = .darkGray
+        button.addTarget(self,action: #selector(logoutButtonTapped),for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
     private let roomsDropDown = DropDown()
     private let instrumentsDropDown = DropDown()
     
@@ -168,8 +180,20 @@ class AdminEquipmentViewController: UIViewController {
         
         
         // BUTTON
+        view.addSubview(logoutButton)
+        logoutButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -120).isActive = true
+        view.addConstraint(NSLayoutConstraint(item: logoutButton,
+                                              attribute: .width,
+                                              relatedBy: .equal,
+                                              toItem: view,
+                                              attribute: .width,
+                                              multiplier: 0.85,
+                                              constant: 0))
+        logoutButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        logoutButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        
         view.addSubview(addButton)
-        addButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -120).isActive = true
+        addButton.bottomAnchor.constraint(equalTo: logoutButton.topAnchor, constant: -10).isActive = true
         view.addConstraint(NSLayoutConstraint(item: addButton,
                                               attribute: .width,
                                               relatedBy: .equal,
@@ -179,6 +203,19 @@ class AdminEquipmentViewController: UIViewController {
                                               constant: 0))
         addButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         addButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        
+        
+//        view.addSubview(addButton)
+//        addButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -120).isActive = true
+//        view.addConstraint(NSLayoutConstraint(item: addButton,
+//                                              attribute: .width,
+//                                              relatedBy: .equal,
+//                                              toItem: view,
+//                                              attribute: .width,
+//                                              multiplier: 0.85,
+//                                              constant: 0))
+//        addButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+//        addButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
     }
     
     func loadRooms() {
@@ -244,6 +281,12 @@ class AdminEquipmentViewController: UIViewController {
     
     @objc private func addButtontapped() {
         presenter?.addEquipment(room: selectedRoom!, instrument: selectedInstrument!)
+    }
+    
+    @objc private func logoutButtonTapped() {
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyBoard.instantiateViewController(withIdentifier: "loginVC") as! UIViewController
+        self.present(vc, animated: true, completion: nil)
     }
     
     func showAlert(title: String) {
