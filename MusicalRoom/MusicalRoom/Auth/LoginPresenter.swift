@@ -25,7 +25,7 @@ class LoginPresenter: LoginPresenterProtocol {
     }
     
     func loginButtonTapped(username: String, password: String) {
-        var request = URLRequest(url: URL(string: "http://localhost:8080/auth/signin")!)
+        var request = URLRequest(url: URL(string: .signInUrl)!)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         let body: [String: AnyHashable] = [
@@ -62,13 +62,21 @@ class LoginPresenter: LoginPresenterProtocol {
                 self?.view?.showAlert()
                 return
             }
-            self?.navigateToMainScreen()
+            let isAdmin = username == "admin"
+            self?.navigateToMainScreen(isAdmin: isAdmin)
         }
     }
     
-    func navigateToMainScreen() {
+    func navigateToMainScreen(isAdmin: Bool) {
         let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-        let view = storyboard.instantiateViewController(withIdentifier: "tabBar") as! UIViewController
+        
+        var view: UIViewController
+        if (isAdmin) {
+            view = storyboard.instantiateViewController(withIdentifier: "adminTabBar") as! UIViewController
+        } else {
+            view = storyboard.instantiateViewController(withIdentifier: "tabBar") as! UIViewController
+        }
+        
         view.modalPresentationStyle = .fullScreen
         self.view?.present(view, animated: true, completion: nil)
     }
