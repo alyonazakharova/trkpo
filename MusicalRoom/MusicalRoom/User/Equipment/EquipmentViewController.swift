@@ -7,26 +7,27 @@
 
 import UIKit
 
-class EquipmentViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    private let group = DispatchGroup()
+class EquipmentViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, EquipmentPresenterDelegate {
     
-    var content = [Equipment]()
-    //fixme
-    private var presenter: EquipmentPresenter?
+    private let presenter = EquipmentPresenter()
+    
+    var rooms = [RoomModel]()
+    
+    var roomInstrumnets = [InstrumentModel]()
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return content.count
+        return rooms.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) ->
     UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: EquipmentTableViewCell.identifier) as? EquipmentTableViewCell
         
-        let equipment = Equipment(id: content[indexPath.row].id,
-                                  name: content[indexPath.row].name,
-                                  description: content[indexPath.row].description,
-                                  price: content[indexPath.row].price)
-        cell?.configure(with: equipment)
+        let room = RoomModel(id: rooms[indexPath.row].id,
+                             name: rooms[indexPath.row].name,
+                             description: rooms[indexPath.row].description,
+                             price: rooms[indexPath.row].price)
+        cell?.configure(with: room)
         return cell!
     }
     
@@ -47,11 +48,12 @@ class EquipmentViewController: UIViewController, UITableViewDataSource, UITableV
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        loadContent()
-        
         tableView.dataSource = self
         tableView.delegate = self
         view.addSubview(tableView)
+        
+        presenter.setViewDelegate(delegate: self)
+        presenter.getRooms()
     }
     
     override func viewDidLayoutSubviews() {
@@ -59,25 +61,43 @@ class EquipmentViewController: UIViewController, UITableViewDataSource, UITableV
         tableView.frame = view.bounds
     }
     
-    func loadContent() {
-        group.enter()
-        var request = URLRequest(url: URL(string: "http://localhost:8080/rooms/all")!)
+    func presentRooms(rooms: [RoomModel]) {
+        self.rooms = rooms
+        
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedRoom = rooms[indexPath.row]
+        print(selectedRoom.id)
+        print(selectedRoom.name)
+        
+        let vc = storyboard?.instantiateViewController(withIdentifier: "roomEquipmentVC") as? RoomEquipmentViewController
+        
+        var request = URLRequest(url: URL(string: "http://localhost:8080/rooms/\(selectedRoom.id)/instruments")!)
         request.httpMethod = "GET"
         request.addValue("Bearer \(UserData.bearerToken)", forHTTPHeaderField: "Authorization")
+
+        let dispatchGroup = DispatchGroup()
+        dispatchGroup.enter()
         
-        let task = URLSession.shared.dataTask(with: request) { [self] data, response, error in
+        let task = URLSession.shared.dataTask(with: request) { [weak self] data, _, error in
             guard let data = data else {
-                print("No data")
                 return
             }
             
-            let equipmentArray = try? JSONDecoder().decode([Equipment].self, from: data)
-            self.content = equipmentArray ?? []
-            group.leave()
+            let instruments = try? JSONDecoder().decode([InstrumentModel].self, from: data)
+            self?.roomInstrumnets = instruments!
+            vc?.instruments = self!.roomInstrumnets
+            
+            dispatchGroup.leave()
         }
         task.resume()
-        group.notify(queue: .main) { [weak self] in
-            self?.tableView.reloadData()
+        
+        dispatchGroup.notify(queue: .main) {
+            self.navigationController?.pushViewController(vc!, animated: true)
         }
     }
 }

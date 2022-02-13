@@ -1,14 +1,14 @@
 //
-//  EquipmentTableViewCell.swift
+//  RoomEquipmentTableViewCell.swift
 //  MusicalRoom
 //
-//  Created by Алена Захарова on 14.12.2021.
+//  Created by Алена Захарова on 13.02.2022.
 //
 
 import UIKit
 
-class EquipmentTableViewCell: UITableViewCell {
-    static let identifier = "EquipmentTableViewCell"
+class RoomEquipmentTableViewCell : UITableViewCell {
+    static let identifier = "RoomEquipmentTableViewCell"
     
     let nameLabel: UILabel = {
         let label = UILabel()
@@ -24,19 +24,11 @@ class EquipmentTableViewCell: UITableViewCell {
         return label
     }()
     
-    let priceLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .black
-        label.font = .systemFont(ofSize: 15)
-        return label
-    }()
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.backgroundColor = .white
         contentView.addSubview(nameLabel)
         contentView.addSubview(descriptionLabel)
-        contentView.addSubview(priceLabel)
     }
     
     required init?(coder: NSCoder) {
@@ -55,16 +47,10 @@ class EquipmentTableViewCell: UITableViewCell {
                                  y: 40,
                                  width: 100,
                                  height: contentView.frame.size.height/2)
-        
-        priceLabel.frame = CGRect(x: contentView.frame.size.width - 80,
-                                 y: 0,
-                                 width: 60,
-                                 height: contentView.frame.size.height)
     }
     
-    func configure(with room: RoomModel) {
-        nameLabel.text = room.name
-        descriptionLabel.text = room.description
-        priceLabel.text = "\(room.price)$"
+    func configure(with instrument: InstrumentModel) {
+        nameLabel.text = instrument.name
+        descriptionLabel.text = instrument.description
     }
 }

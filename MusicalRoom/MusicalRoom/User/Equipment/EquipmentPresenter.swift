@@ -6,37 +6,35 @@
 //
 
 import Foundation
+import UIKit
 
-protocol EquipmentPresenterProtocol: AnyObject {
-    
-    func loadContent()
-    init(view: EquipmentViewController)
+protocol EquipmentPresenterDelegate: AnyObject {
+    func presentRooms(rooms: [RoomModel])
 }
 
-class EquipmentPresenter: EquipmentPresenterProtocol {    
-    var content: [Equipment]
+typealias PresenterDelegateEquipment = EquipmentPresenterDelegate & UIViewController
+
+class EquipmentPresenter {
     
-    var view: EquipmentViewController?
     
-    required init(view: EquipmentViewController) {
-        self.view = view
-        self.content = []
+    weak var delegate: PresenterDelegateEquipment?
+    
+    public func setViewDelegate(delegate: PresenterDelegateEquipment) {
+        self.delegate = delegate
     }
     
-    func loadContent() {
-        print("loadContent called")
+    func getRooms() {
         var request = URLRequest(url: URL(string: .getAllRoomsUrl)!)
         request.httpMethod = "GET"
-        
-        let task = URLSession.shared.dataTask(with: request) { [self] data, response, error in
+        request.addValue("Bearer \(UserData.bearerToken)", forHTTPHeaderField: "Authorization")
+
+        let task = URLSession.shared.dataTask(with: request) { [weak self] data, _, error in
             guard let data = data else {
                 return
             }
             
-            let equipmentArray = try? JSONDecoder().decode([Equipment].self, from: data)
-            self.content = equipmentArray ?? []
-            print(content)
-     
+            let receivedRooms = try? JSONDecoder().decode([RoomModel].self, from: data)
+            self?.delegate?.presentRooms(rooms: receivedRooms!)
         }
         task.resume()
     }

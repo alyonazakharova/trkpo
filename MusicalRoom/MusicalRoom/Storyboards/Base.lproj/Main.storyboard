@@ -281,6 +281,22 @@
             </objects>
             <point key="canvasLocation" x="61" y="2413"/>
         </scene>
+        <!--Room Equipment View Controller-->
+        <scene sceneID="XRd-Fq-xO5">
+            <objects>
+                <viewController storyboardIdentifier="roomEquipmentVC" id="miB-Kb-yn8" customClass="RoomEquipmentViewController" customModule="MusicalRoom" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="yxE-3w-h5A">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="W43-HM-CfB"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="LxA-vy-esG"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="741-56-et9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="60.869565217391312" y="3168.75"/>
+        </scene>
         <!--Profile-->
         <scene sceneID="Hga-kv-dod">
             <objects>
