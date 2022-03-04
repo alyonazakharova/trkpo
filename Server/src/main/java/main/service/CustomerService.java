@@ -3,8 +3,10 @@ package main.service;
 import main.entity.Customer;
 import main.model.CustomerModel;
 
+import java.util.List;
+
 public interface CustomerService {
-    void add(Customer customer);
+    boolean add(Customer customer);
 
     void delete(long id);
 
@@ -13,4 +15,6 @@ public interface CustomerService {
     Customer getById(long id);
 
     Customer getByUserId(long id);
+
+    List<Customer> getAll();
 }

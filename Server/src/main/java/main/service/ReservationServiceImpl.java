@@ -1,5 +1,6 @@
 package main.service;
 
+import main.entity.Instrument;
 import main.entity.Reservation;
 import main.exception.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +17,13 @@ public class ReservationServiceImpl implements ReservationService {
     private ReservationRepository reservationRepository;
 
     @Override
-    public void add(Reservation reservation) {
+    public boolean add(Reservation reservation) {
+        Optional<Reservation> reservationFromDB = reservationRepository.findById(reservation.getId());
+        if (reservationFromDB.isPresent()) {
+            return false;
+        }
         reservationRepository.save(reservation);
+        return true;
     }
 
     @Override

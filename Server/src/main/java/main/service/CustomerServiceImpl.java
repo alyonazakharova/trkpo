@@ -16,8 +16,15 @@ public class CustomerServiceImpl implements CustomerService{
     private CustomerRepository customerRepository;
 
     @Override
-    public void add(Customer customer) {
+    public boolean add(Customer customer) {
+        Optional<Customer> customerFromDb = customerRepository.findById(customer.getId());
+        if (customerFromDb.isPresent()) {
+            return false;
+        }
+
         customerRepository.save(customer);
+
+        return true;
     }
 
     @Override
@@ -60,5 +67,10 @@ public class CustomerServiceImpl implements CustomerService{
             throw new EntityNotFoundException("Customer not found");
         }
         return customer.get();
+    }
+
+    @Override
+    public List<Customer> getAll() {
+        return (List<Customer>) customerRepository.findAll();
     }
 }

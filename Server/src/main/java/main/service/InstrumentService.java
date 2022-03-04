@@ -5,7 +5,7 @@ import main.entity.Instrument;
 import java.util.List;
 
 public interface InstrumentService {
-    void add(Instrument customer);
+    boolean add(Instrument customer);
 
     void delete(long id);
 

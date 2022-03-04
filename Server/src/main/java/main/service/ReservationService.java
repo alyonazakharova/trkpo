@@ -5,7 +5,7 @@ import main.entity.Reservation;
 import java.util.List;
 
 public interface ReservationService {
-    void add(Reservation reservation);
+    boolean add(Reservation reservation);
 
     void delete(long id);
 

@@ -1,5 +1,6 @@
 package main.service;
 
+import main.entity.Customer;
 import main.entity.Instrument;
 import main.entity.Room;
 import main.entity.RoomInstrument;
@@ -21,8 +22,13 @@ public class InstrumentServiceImpl implements InstrumentService {
     private RoomInstrumentRepository roomInstrumentRepository;
 
     @Override
-    public void add(Instrument customer) {
-        instrumentRepository.save(customer);
+    public boolean add(Instrument instrument) {
+        Optional<Instrument> instrumentFromDB = instrumentRepository.findById(instrument.getId());
+        if (instrumentFromDB.isPresent()) {
+            return false;
+        }
+        instrumentRepository.save(instrument);
+        return true;
     }
 
     @Override

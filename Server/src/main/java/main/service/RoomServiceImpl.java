@@ -29,8 +29,13 @@ public class RoomServiceImpl implements RoomService {
     private RoomInstrumentRepository roomInstrumentRepository;
 
     @Override
-    public void add(Room customer) {
-        roomRepository.save(customer);
+    public boolean add(Room room) {
+        Optional<Room> roomFromDB = roomRepository.findByName(room.getName());
+        if (roomFromDB.isPresent()) {
+            return false;
+        }
+        roomRepository.save(room);
+        return true;
     }
 
     @Override
