@@ -1,0 +1,16 @@
+name: CI
+
+on:
+  push:
+    branches: [ unit-tests, master ]
+#   pull_request:
+#     branches: [ develop ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Run tests
+        if: github.ref == 'refs/heads/unit-tests'
+        run: echo Hello, world!
