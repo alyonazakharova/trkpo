@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, UITextFieldDelegate {
     
     var presenter: LoginPresenterProtocol?
 
@@ -48,13 +48,12 @@ class LoginViewController: UIViewController {
         let field = UITextField()
         field.autocapitalizationType = .none
         field.autocorrectionType = .no
-        field.returnKeyType = .continue
         field.layer.cornerRadius = 10
         field.placeholder = "password"
         field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 14, height: 0))
         field.leftViewMode = .always
         field.backgroundColor = .textFieldBgColor
-        field.returnKeyType = .continue
+        field.returnKeyType = .done
         field.isSecureTextEntry = true
         field.translatesAutoresizingMaskIntoConstraints = false
         return field
@@ -75,6 +74,8 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter = LoginPresenter(view: self)
+        self.usernameField.delegate = self
+        self.passwordField.delegate = self
         setBackground()
         setUI()
     }
@@ -121,7 +122,7 @@ class LoginViewController: UIViewController {
         passwordField.topAnchor.constraint(equalTo: usernameField.bottomAnchor, constant: 60).isActive = true
         passwordField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         passwordField.heightAnchor.constraint(equalToConstant: 45).isActive = true
-        
+
         view.addSubview(passwordLabel)
         passwordLabel.bottomAnchor.constraint(equalTo: passwordField.topAnchor, constant: -5).isActive = true
         passwordLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30).isActive = true
@@ -138,7 +139,11 @@ class LoginViewController: UIViewController {
                                               constant: 0))
         loginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         loginButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
-        
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
     
     @objc private func loginButtonTapped() {

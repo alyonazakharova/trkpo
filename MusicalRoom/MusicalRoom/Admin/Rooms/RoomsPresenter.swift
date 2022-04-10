@@ -27,6 +27,8 @@ class RoomsPresenter: RoomsPresenterProtocol {
     func addNewRoom(name: String, description: String, price: Int) {
         self.errorOccured = false
         
+        print("WTF the token is \(UserData.bearerToken)")
+        
         var request = URLRequest(url: URL(string: .addRoomUrl)!)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")

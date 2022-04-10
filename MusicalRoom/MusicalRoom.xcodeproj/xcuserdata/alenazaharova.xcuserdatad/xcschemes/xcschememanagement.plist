@@ -9,6 +9,26 @@
 			<key>orderHint</key>
 			<integer>2</integer>
 		</dict>
+		<key>MusicalRoomUITests.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>6DFBF91E2766AFC600FAAA04</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6DFD3F6427F0590100CF7201</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 	</dict>
 </dict>
 </plist>
