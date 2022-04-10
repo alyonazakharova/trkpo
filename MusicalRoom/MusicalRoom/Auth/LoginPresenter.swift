@@ -25,6 +25,8 @@ class LoginPresenter: LoginPresenterProtocol {
     }
     
     func loginButtonTapped(username: String, password: String) {
+        errorOccured = false
+        
         var request = URLRequest(url: URL(string: .signInUrl)!)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")

@@ -62,7 +62,19 @@
 		6DFBF92A2766AFC600FAAA04 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6DFBF9282766AFC600FAAA04 /* Main.storyboard */; };
 		6DFBF92C2766AFC700FAAA04 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6DFBF92B2766AFC700FAAA04 /* Assets.xcassets */; };
 		6DFBF92F2766AFC700FAAA04 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6DFBF92D2766AFC700FAAA04 /* LaunchScreen.storyboard */; };
+		6DFD3F6827F0590100CF7201 /* MusicalRoomUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DFD3F6727F0590100CF7201 /* MusicalRoomUITests.swift */; };
+		6DFD3F6A27F0590100CF7201 /* MusicalRoomUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DFD3F6927F0590100CF7201 /* MusicalRoomUITestsLaunchTests.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		6DFD3F6B27F0590100CF7201 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6DFBF9172766AFC500FAAA04 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6DFBF91E2766AFC600FAAA04;
+			remoteInfo = MusicalRoom;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		6D572D8C276F4275006F8DA9 /* ReservePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservePresenter.swift; sourceTree = "<group>"; };
@@ -121,6 +133,9 @@
 		6DFBF92B2766AFC700FAAA04 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6DFBF92E2766AFC700FAAA04 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6DFBF9302766AFC700FAAA04 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6DFD3F6527F0590100CF7201 /* MusicalRoomUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MusicalRoomUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6DFD3F6727F0590100CF7201 /* MusicalRoomUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicalRoomUITests.swift; sourceTree = "<group>"; };
+		6DFD3F6927F0590100CF7201 /* MusicalRoomUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicalRoomUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		9010C2081F01A5FADD0904AD /* Pods_MusicalRoom.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MusicalRoom.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A540EE9BB5B8B67C8C49E605 /* Pods-MusicalRoom.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MusicalRoom.release.xcconfig"; path = "Target Support Files/Pods-MusicalRoom/Pods-MusicalRoom.release.xcconfig"; sourceTree = "<group>"; };
 		CAA713E69DF6E4B3254C4E1F /* Pods-MusicalRoom.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MusicalRoom.debug.xcconfig"; path = "Target Support Files/Pods-MusicalRoom/Pods-MusicalRoom.debug.xcconfig"; sourceTree = "<group>"; };
@@ -132,6 +147,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				61995F8C48F93F2F3A7E4BED /* Pods_MusicalRoom.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6DFD3F6227F0590100CF7201 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -339,6 +361,7 @@
 			isa = PBXGroup;
 			children = (
 				6DFBF9212766AFC600FAAA04 /* MusicalRoom */,
+				6DFD3F6627F0590100CF7201 /* MusicalRoomUITests */,
 				6DFBF9202766AFC600FAAA04 /* Products */,
 				4E841F9FCF582E1353AD9AFF /* Pods */,
 				89898EDD8CF59B2E258DA316 /* Frameworks */,
@@ -349,6 +372,7 @@
 			isa = PBXGroup;
 			children = (
 				6DFBF91F2766AFC600FAAA04 /* MusicalRoom.app */,
+				6DFD3F6527F0590100CF7201 /* MusicalRoomUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -369,6 +393,15 @@
 				6DFBF9302766AFC700FAAA04 /* Info.plist */,
 			);
 			path = MusicalRoom;
+			sourceTree = "<group>";
+		};
+		6DFD3F6627F0590100CF7201 /* MusicalRoomUITests */ = {
+			isa = PBXGroup;
+			children = (
+				6DFD3F6727F0590100CF7201 /* MusicalRoomUITests.swift */,
+				6DFD3F6927F0590100CF7201 /* MusicalRoomUITestsLaunchTests.swift */,
+			);
+			path = MusicalRoomUITests;
 			sourceTree = "<group>";
 		};
 		89898EDD8CF59B2E258DA316 /* Frameworks */ = {
@@ -401,6 +434,24 @@
 			productReference = 6DFBF91F2766AFC600FAAA04 /* MusicalRoom.app */;
 			productType = "com.apple.product-type.application";
 		};
+		6DFD3F6427F0590100CF7201 /* MusicalRoomUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6DFD3F6F27F0590100CF7201 /* Build configuration list for PBXNativeTarget "MusicalRoomUITests" */;
+			buildPhases = (
+				6DFD3F6127F0590100CF7201 /* Sources */,
+				6DFD3F6227F0590100CF7201 /* Frameworks */,
+				6DFD3F6327F0590100CF7201 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6DFD3F6C27F0590100CF7201 /* PBXTargetDependency */,
+			);
+			name = MusicalRoomUITests;
+			productName = MusicalRoomUITests;
+			productReference = 6DFD3F6527F0590100CF7201 /* MusicalRoomUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -413,6 +464,10 @@
 				TargetAttributes = {
 					6DFBF91E2766AFC600FAAA04 = {
 						CreatedOnToolsVersion = 13.1;
+					};
+					6DFD3F6427F0590100CF7201 = {
+						CreatedOnToolsVersion = 13.1;
+						TestTargetID = 6DFBF91E2766AFC600FAAA04;
 					};
 				};
 			};
@@ -430,6 +485,7 @@
 			projectRoot = "";
 			targets = (
 				6DFBF91E2766AFC600FAAA04 /* MusicalRoom */,
+				6DFD3F6427F0590100CF7201 /* MusicalRoomUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -446,6 +502,13 @@
 				6DFBF92A2766AFC600FAAA04 /* Main.storyboard in Resources */,
 				6D94CA712767DE90009F7E7B /* FasterOne-Regular.ttf in Resources */,
 				6D94CA722767DE92009F7E7B /* WorkSans-Regular.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6DFD3F6327F0590100CF7201 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -548,7 +611,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6DFD3F6127F0590100CF7201 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6DFD3F6A27F0590100CF7201 /* MusicalRoomUITestsLaunchTests.swift in Sources */,
+				6DFD3F6827F0590100CF7201 /* MusicalRoomUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		6DFD3F6C27F0590100CF7201 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6DFBF91E2766AFC600FAAA04 /* MusicalRoom */;
+			targetProxy = 6DFD3F6B27F0590100CF7201 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		6DFBF9282766AFC600FAAA04 /* Main.storyboard */ = {
@@ -750,6 +830,52 @@
 			};
 			name = Release;
 		};
+		6DFD3F6D27F0590100CF7201 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Z3AC7YG7YK;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.spbstu.MusicalRoomUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = MusicalRoom;
+			};
+			name = Debug;
+		};
+		6DFD3F6E27F0590100CF7201 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Z3AC7YG7YK;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.spbstu.MusicalRoomUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = MusicalRoom;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -767,6 +893,15 @@
 			buildConfigurations = (
 				6DFBF9342766AFC700FAAA04 /* Debug */,
 				6DFBF9352766AFC700FAAA04 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6DFD3F6F27F0590100CF7201 /* Build configuration list for PBXNativeTarget "MusicalRoomUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6DFD3F6D27F0590100CF7201 /* Debug */,
+				6DFD3F6E27F0590100CF7201 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

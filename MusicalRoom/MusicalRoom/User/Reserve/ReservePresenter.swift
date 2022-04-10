@@ -44,6 +44,9 @@ class ReservePresenter {
             if let httpResponse = response as? HTTPURLResponse {
                 if (httpResponse.statusCode != 200) {
                     print("UNSUCCESSFUL WITH CODE: \(httpResponse.statusCode)")
+                    DispatchQueue.main.async {
+                        self.delegate?.showAlert(title: "It seems like you've entered incorrect date")
+                    }
                     return
                 }
             }

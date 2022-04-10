@@ -40,12 +40,12 @@ class RoomEquipmentTableViewCell : UITableViewCell {
         
         nameLabel.frame = CGRect(x: 30,
                                  y: 20,
-                                 width: 100,
+                                 width: 300,
                                  height: contentView.frame.size.height/2)
         
         descriptionLabel.frame = CGRect(x: 30,
                                  y: 40,
-                                 width: 100,
+                                 width: 300,
                                  height: contentView.frame.size.height/2)
     }
     

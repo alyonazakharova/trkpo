@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RoomsViewController: UIViewController {
+class RoomsViewController: UIViewController, UITextFieldDelegate {
     
     var presenter: RoomsPresenterProtocol?
 
@@ -22,7 +22,7 @@ class RoomsViewController: UIViewController {
     
     private let nameField: UITextField = {
         let field = UITextField()
-        field.returnKeyType = .continue
+        field.returnKeyType = .done
         field.layer.cornerRadius = 10
         field.placeholder = "Name"
         field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 14, height: 0))
@@ -44,7 +44,7 @@ class RoomsViewController: UIViewController {
     
     private let descriptionField: UITextField = {
         let field = UITextField()
-        field.returnKeyType = .continue
+        field.returnKeyType = .done
         field.layer.cornerRadius = 10
         field.placeholder = "Description"
         field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 14, height: 0))
@@ -66,13 +66,12 @@ class RoomsViewController: UIViewController {
     
     private let priceField: UITextField = {
         let field = UITextField()
-        field.returnKeyType = .continue
         field.layer.cornerRadius = 10
         field.placeholder = "Price"
         field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 14, height: 0))
         field.leftViewMode = .always
         field.backgroundColor = .textFieldBgColor
-        field.returnKeyType = .continue
+        field.returnKeyType = .done
         field.translatesAutoresizingMaskIntoConstraints = false
         return field
     }()
@@ -104,8 +103,16 @@ class RoomsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter = RoomsPresenter(view: self)
+        self.nameField.delegate = self
+        self.descriptionField.delegate = self
+        self.priceField.delegate = self
         setBackground()
         setUI()
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
     
     func setBackground(){
